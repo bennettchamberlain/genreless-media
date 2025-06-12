@@ -1,4 +1,4 @@
-import "./globals.css";
+import "../../globals.css";
 
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
@@ -9,12 +9,11 @@ import { Toaster } from "sonner";
 
 import DraftModeToast from "@/app/components/DraftModeToast";
 import Footer from "@/app/components/Footer";
-import Header from "@/app/components/Header";
 import * as demo from "@/sanity/lib/demo";
 import { sanityFetch, SanityLive } from "@/sanity/lib/live";
 import { settingsQuery } from "@/sanity/lib/queries";
 import { resolveOpenGraphImage } from "@/sanity/lib/utils";
-import { handleError } from "./client-utils";
+import { handleError } from "@/app/client-utils";
 
 /**
  * Generate metadata for the page.
@@ -57,7 +56,7 @@ const inter = Inter({
   display: "swap",
 });
 
-export default async function RootLayout({
+export default async function ProjectLayout({
   children,
 }: {
   children: React.ReactNode;
@@ -65,8 +64,8 @@ export default async function RootLayout({
   const { isEnabled: isDraftMode } = await draftMode();
 
   return (
-    <html lang="en" className={`${inter.variable} bg-white text-black`}>
-      <body>
+    
+      <>
         <section className="min-h-screen">
           {/* The <Toaster> component is responsible for rendering toast notifications used in /app/client-utils.ts and /app/components/DraftModeToast.tsx */}
           <Toaster />
@@ -79,12 +78,13 @@ export default async function RootLayout({
           )}
           {/* The <SanityLive> component is responsible for making all sanityFetch calls in your application live, so should always be rendered. */}
           <SanityLive onError={handleError} />
-          {/* <Header /> */}
           <main className="">{children}</main>
-          {/* <Footer /> */}
+          <div className="border-t-1 border-[#575757]">
+            <Footer backgroundColor="#000000" textColor="white" />
+          </div>
         </section>
         <SpeedInsights />
-      </body>
-    </html>
+        </>
+    
   );
 }
