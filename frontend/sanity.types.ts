@@ -752,8 +752,11 @@ export type PagesSlugsResult = Array<{
   slug: string;
 }>;
 // Variable: allProjectsQuery
-// Query: *[_type == "project" && defined(slug.current)] | order(date desc) {    _id,    title,    "slug": slug.current,    projectTypes,    isSelected,    description,    "coverThumb": coverThumb.asset->url,    "coverHover": coverHover.asset->url,    mainContent[] {      type,      "image": image.asset->url,      videoUrl    },    btsContent[] {      type,      "image": image.asset->url,      videoUrl    },    body,    "date": date  }
+// Query: *[_type == "project" && defined(slug.current)] | order(date desc) {    _id,    title,    client,    format,    "slug": slug.current,    projectTypes,    isSelected,    description,    "coverThumb": coverThumb.asset->url,    "coverHover": coverHover.asset->url,    content[] {      type,      "image": image.asset->url,      videoUrl    },    "date": date  }
 export type AllProjectsQueryResult = Array<never>;
+// Variable: projectQuery
+// Query: *[_type == "project" && slug.current == $slug][0] {    _id,    title,    client,    format,    "slug": slug.current,    projectTypes,    isSelected,    description,    "coverThumb": coverThumb.asset->url,    "coverHover": coverHover.asset->url,    content[] {      type,      "image": image.asset->url,      videoUrl    },    "date": date  }
+export type ProjectQueryResult = null;
 
 // Query TypeMap
 import "@sanity/client";
@@ -767,6 +770,7 @@ declare module "@sanity/client" {
     "\n  *[_type == \"post\" && slug.current == $slug] [0] {\n    content[]{\n    ...,\n    markDefs[]{\n      ...,\n      \n  _type == \"link\" => {\n    \"page\": page->slug.current,\n    \"post\": post->slug.current\n  }\n\n    }\n  },\n    \n  _id,\n  \"status\": select(_originalId in path(\"drafts.**\") => \"draft\", \"published\"),\n  \"title\": coalesce(title, \"Untitled\"),\n  \"slug\": slug.current,\n  excerpt,\n  coverImage,\n  \"date\": coalesce(date, _updatedAt),\n  \"author\": author->{firstName, lastName, picture},\n\n  }\n": PostQueryResult;
     "\n  *[_type == \"post\" && defined(slug.current)]\n  {\"slug\": slug.current}\n": PostPagesSlugsResult;
     "\n  *[_type == \"page\" && defined(slug.current)]\n  {\"slug\": slug.current}\n": PagesSlugsResult;
-    "\n  *[_type == \"project\" && defined(slug.current)] | order(date desc) {\n    _id,\n    title,\n    \"slug\": slug.current,\n    projectTypes,\n    isSelected,\n    description,\n    \"coverThumb\": coverThumb.asset->url,\n    \"coverHover\": coverHover.asset->url,\n    mainContent[] {\n      type,\n      \"image\": image.asset->url,\n      videoUrl\n    },\n    btsContent[] {\n      type,\n      \"image\": image.asset->url,\n      videoUrl\n    },\n    body,\n    \"date\": date\n  }\n": AllProjectsQueryResult;
+    "\n  *[_type == \"project\" && defined(slug.current)] | order(date desc) {\n    _id,\n    title,\n    client,\n    format,\n    \"slug\": slug.current,\n    projectTypes,\n    isSelected,\n    description,\n    \"coverThumb\": coverThumb.asset->url,\n    \"coverHover\": coverHover.asset->url,\n    content[] {\n      type,\n      \"image\": image.asset->url,\n      videoUrl\n    },\n    \"date\": date\n  }\n": AllProjectsQueryResult;
+    "\n  *[_type == \"project\" && slug.current == $slug][0] {\n    _id,\n    title,\n    client,\n    format,\n    \"slug\": slug.current,\n    projectTypes,\n    isSelected,\n    description,\n    \"coverThumb\": coverThumb.asset->url,\n    \"coverHover\": coverHover.asset->url,\n    content[] {\n      type,\n      \"image\": image.asset->url,\n      videoUrl\n    },\n    \"date\": date\n  }\n": ProjectQueryResult;
   }
 }

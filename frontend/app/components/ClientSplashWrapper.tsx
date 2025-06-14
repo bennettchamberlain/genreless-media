@@ -12,7 +12,22 @@ export default function ClientSplashWrapper({ children }: { children: React.Reac
   };
 
   if (showSplash) {
-    return <SplashScreen onFinish={handleFinishSplash} />;
+    return (
+      <>
+        <SplashScreen onFinish={handleFinishSplash} />
+        {/* Hidden iframe to preload the video */}
+        <div style={{ position: 'absolute', opacity: 1, pointerEvents: 'none', zIndex: 1 }}>
+          <iframe
+            src="https://player.vimeo.com/video/1092616169?background=1&autoplay=1&loop=1&byline=0&title=0&muted=1"
+            width="1280"
+            height="720"
+            allow="autoplay; fullscreen"
+            allowFullScreen
+            style={{ border: 'none' }}
+          />
+        </div>
+      </>
+    );
   }
 
   return <>{children}</>;
