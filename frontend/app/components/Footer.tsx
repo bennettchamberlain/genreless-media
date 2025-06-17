@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 
 interface FooterProps {
   backgroundColor?: string;
@@ -15,11 +16,15 @@ export default function Footer({
         {/* Column 1 */}
         <div className="flex flex-col lg:basis-4/6 lg:max-w-[66%] mb-0 h-full px-2">
           <div className="flex flex-col h-full py-1 min-h-[180px]">
-            <span className={`font-sans text-xs mb-4 mt-2 ml-2 text-${textColor} italic`}>pare down to the essence, <br></br>but don't remove the poetry...</span>
+            <span className={`font-sans text-xs mb-4 mt-2 ml-2 text-${textColor} italic`}>pare down to the essence, <br></br>but don&apos;t remove the poetry...</span>
             <div className="flex-1 hidden lg:block" />
             <div className="flex items-end w-full justify-start mt-2">
-              <img src="/images/g.M_logo.png" alt="g.M logo" width={208} height={208} className="align-bottom hidden lg:block" />
-              <img src="/images/g.M_logo.png" alt="g.M logo" width={48} className="align-bottom block lg:hidden" />
+              <div className="relative w-[208px] h-[208px] hidden lg:block">
+                <Image src="/images/g.M_logo.png" alt="g.M logo" fill className="object-contain" />
+              </div>
+              <div className="relative w-12 h-12 block lg:hidden">
+                <Image src="/images/g.M_logo.png" alt="g.M logo" fill className="object-contain" />
+              </div>
             </div>
           </div>
         </div>

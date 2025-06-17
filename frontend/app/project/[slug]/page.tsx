@@ -24,7 +24,7 @@ interface Project {
 }
 
 interface Props {
-  params: { slug: string }
+  params: Promise<{ slug: string }>;
 }
 
 async function getProject(slug: string): Promise<Project | null> {
@@ -32,7 +32,8 @@ async function getProject(slug: string): Promise<Project | null> {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const project = await getProject(params.slug)
+  const { slug } = await params
+  const project = await getProject(slug)
   if (!project) {
     return {
       title: 'Project Not Found',
@@ -45,7 +46,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function ProjectPage({ params }: Props) {
-  const project = await getProject(params.slug)
+  const { slug } = await params
+  const project = await getProject(slug)
   if (!project) notFound()
   return <ProjectPageContent project={project} />
 }

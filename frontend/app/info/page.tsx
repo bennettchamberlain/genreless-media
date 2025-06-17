@@ -70,8 +70,8 @@ export default function InfoPage() {
         <main className="max-w-6xl mx-auto px-4 pt-8 pb-32">
           <div className="text-[2.2rem] md:text-[2.8rem] leading-snug font-sans font-normal text-[#091ebc]" style={{ wordBreak: 'break-word' }}>
             ✺ genreless Media is a production company founded by <a href="https://www.instagram.com/jackierad/" target="_blank" rel="noopener noreferrer" className="underline hover:opacity-80">Jackie Radinsky</a> in Los Angeles, with roots worldwide. It was conceived out of a reverence for humanity, art, and nature.<br /><br />
-            💡 We create music videos, commercials / campaigns, documentaries, <a href="/archive" className="underline hover:opacity-80">zines</a>, + anything in between - from the ground up. We're firm believers in the power of <span className="italic">sincere</span> art to connect community & spark a brighter future.<br /><br />
-            🪡 Our team handles every aspect of production with precise care tailored to your project's needs. Reach out today to discuss how we can bring your vision to life ↓<br /><br />
+            💡 We create music videos, commercials / campaigns, documentaries, <Link href="/archive" className="underline hover:opacity-80">zines</Link>, + anything in between - from the ground up. We&apos;re firm believers in the power of <span className="italic">sincere</span> art to connect community & spark a brighter future.<br /><br />
+            🪡 Our team handles every aspect of production with precise care tailored to your project&apos;s needs. Reach out today to discuss how we can bring your vision to life ↓<br /><br />
             <EnvelopeIcon />
             <a href="mailto:studio@genreless.media" className="underline hover:opacity-80">studio@genreless.media</a>
           </div>
