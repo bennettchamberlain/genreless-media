@@ -109,7 +109,7 @@ const ProjectPageContent = ({ project, prevSlug, nextSlug }: Props) => {
       )}
 
       {/* Title and Navigation Column */}
-      <div className="w-full max-w-[1300px] mt-8">
+      <div className="w-full max-w-[1300px] mt-8 mr-4 sm:mr-4 md:mr-4 lg:mr-4 xl:mr-0">
         <div className="w-full flex justify-end gap-4">
           <button
             onClick={handlePrev}
@@ -134,12 +134,12 @@ const ProjectPageContent = ({ project, prevSlug, nextSlug }: Props) => {
             Next
           </button>
         </div>
-        <h1 className="text-4xl md:text-5xl font-bold mb-4">{project.title}</h1>
+        <h1 className="text-4xl md:text-5xl font-bold mt-8 ml-4 sm:ml-4 md:ml-4 lg:ml-4 xl:ml-0 font-['Helvetica']">{project.title}</h1>
       </div>
 
       {/* Grid Column */}
-      <div className="w-full max-w-[1300px] mt-10">
-        <div className="grid grid-cols-2 gap-6">
+      <div className="w-full max-w-[1300px] mt-10 px-4 sm:px-4 md:px-4 lg:px-4 xl:px-0">
+        <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 gap-6">
           {project.content.map((item, idx) => (
             <div
               key={idx}
