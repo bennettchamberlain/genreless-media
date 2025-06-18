@@ -62,11 +62,6 @@ export const project = defineType({
       initialValue: false,
     }),
     defineField({
-      name: 'description',
-      title: 'Description',
-      type: 'text',
-    }),
-    defineField({
       name: 'coverThumb',
       title: 'Cover Thumbnail',
       type: 'image',
@@ -85,6 +80,58 @@ export const project = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: 'mainGalleryMedia',
+      title: 'Main Gallery Media',
+      type: 'object',
+      fields: [
+        {
+          name: 'type',
+          title: 'Media Type',
+          type: 'string',
+          options: {
+            list: [
+              {title: 'Image', value: 'image'},
+              {title: 'Video Upload', value: 'videoUpload'},
+              {title: 'Vimeo Link', value: 'vimeo'},
+              {title: 'YouTube Link', value: 'youtube'},
+            ],
+          },
+          validation: (Rule) => Rule.required(),
+        },
+        {
+          name: 'image',
+          title: 'Image',
+          type: 'image',
+          options: {
+            hotspot: true,
+          },
+          hidden: ({parent}) => parent?.type !== 'image',
+        },
+        {
+          name: 'videoFile',
+          title: 'Video File',
+          type: 'file',
+          options: {
+            accept: 'video/*'
+          },
+          hidden: ({parent}) => parent?.type !== 'videoUpload',
+        },
+        {
+          name: 'vimeoUrl',
+          title: 'Vimeo URL',
+          type: 'url',
+          hidden: ({parent}) => parent?.type !== 'vimeo',
+        },
+        {
+          name: 'youtubeUrl',
+          title: 'YouTube URL',
+          type: 'url',
+          hidden: ({parent}) => parent?.type !== 'youtube',
+        },
+      ],
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
       name: 'content',
       title: 'Content',
       type: 'array',
@@ -94,15 +141,24 @@ export const project = defineType({
           fields: [
             {
               name: 'type',
-              title: 'Media Type',
+              title: 'Content Type',
               type: 'string',
               options: {
                 list: [
+                  {title: 'Text', value: 'text'},
                   {title: 'Image', value: 'image'},
-                  {title: 'Video', value: 'video'},
+                  {title: 'Video Upload', value: 'videoUpload'},
+                  {title: 'Vimeo Link', value: 'vimeo'},
+                  {title: 'YouTube Link', value: 'youtube'},
                 ],
               },
               validation: (Rule) => Rule.required(),
+            },
+            {
+              name: 'text',
+              title: 'Text Content',
+              type: 'text',
+              hidden: ({parent}) => parent?.type !== 'text',
             },
             {
               name: 'image',
@@ -114,10 +170,25 @@ export const project = defineType({
               hidden: ({parent}) => parent?.type !== 'image',
             },
             {
-              name: 'videoUrl',
-              title: 'Video URL',
+              name: 'videoFile',
+              title: 'Video File',
+              type: 'file',
+              options: {
+                accept: 'video/*'
+              },
+              hidden: ({parent}) => parent?.type !== 'videoUpload',
+            },
+            {
+              name: 'vimeoUrl',
+              title: 'Vimeo URL',
               type: 'url',
-              hidden: ({parent}) => parent?.type !== 'video',
+              hidden: ({parent}) => parent?.type !== 'vimeo',
+            },
+            {
+              name: 'youtubeUrl',
+              title: 'YouTube URL',
+              type: 'url',
+              hidden: ({parent}) => parent?.type !== 'youtube',
             },
           ],
         },

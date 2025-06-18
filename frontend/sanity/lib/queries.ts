@@ -105,13 +105,22 @@ export const allProjectsQuery = defineQuery(`
     "slug": slug.current,
     projectTypes,
     isSelected,
-    description,
     "coverThumb": coverThumb.asset->url,
     "coverHover": coverHover.asset->url,
-    content[] {
+    mainGalleryMedia {
       type,
       "image": image.asset->url,
-      videoUrl
+      "videoFile": videoFile.asset->url,
+      vimeoUrl,
+      youtubeUrl
+    },
+    content[] {
+      type,
+      text,
+      "image": image.asset->url,
+      "videoFile": videoFile.asset->url,
+      vimeoUrl,
+      youtubeUrl
     },
     "date": date
   }
@@ -126,14 +135,29 @@ export const projectQuery = defineQuery(`
     "slug": slug.current,
     projectTypes,
     isSelected,
-    description,
     "coverThumb": coverThumb.asset->url,
     "coverHover": coverHover.asset->url,
-    content[] {
+    mainGalleryMedia {
       type,
       "image": image.asset->url,
-      videoUrl
+      "videoFile": videoFile.asset->url,
+      vimeoUrl,
+      youtubeUrl
+    },
+    content[] {
+      type,
+      text,
+      "image": image.asset->url,
+      "videoFile": videoFile.asset->url,
+      vimeoUrl,
+      youtubeUrl
     },
     "date": date
+  }
+`);
+
+export const allProjectSlugsQuery = defineQuery(`
+  *[_type == "project" && defined(slug.current)] | order(date desc) {
+    "slug": slug.current
   }
 `);

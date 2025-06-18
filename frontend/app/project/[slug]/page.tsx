@@ -1,8 +1,9 @@
 import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { client } from '@/sanity/lib/client'
-import { projectQuery } from '@/sanity/lib/queries'
+import { projectQuery, allProjectSlugsQuery } from '@/sanity/lib/queries'
 import ProjectPageContent from './ProjectPageContent'
+import ArchiveHeader from '@/app/archive/components/archiveHeader'
 
 interface Project {
   _id: string
@@ -12,13 +13,22 @@ interface Project {
   format?: string
   projectTypes?: string[]
   isSelected: boolean
-  description: string
   coverThumb?: string
   coverHover?: string
-  content: Array<{
-    type: 'image' | 'video'
+  mainGalleryMedia: {
+    type: 'image' | 'videoUpload' | 'vimeo' | 'youtube'
     image?: string
-    videoUrl?: string
+    videoFile?: string
+    vimeoUrl?: string
+    youtubeUrl?: string
+  }
+  content: Array<{
+    type: 'text' | 'image' | 'videoUpload' | 'vimeo' | 'youtube'
+    text?: string
+    image?: string
+    videoFile?: string
+    vimeoUrl?: string
+    youtubeUrl?: string
   }>
   date: string
 }
@@ -31,6 +41,11 @@ async function getProject(slug: string): Promise<Project | null> {
   return client.fetch(projectQuery, { slug })
 }
 
+async function getAllProjectSlugs(): Promise<string[]> {
+  const slugs = await client.fetch(allProjectSlugsQuery)
+  return slugs.map((item: { slug: string }) => item.slug)
+}
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params
   const project = await getProject(slug)
@@ -41,13 +56,30 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
   return {
     title: project.title,
-    description: project.description,
   }
 }
 
 export default async function ProjectPage({ params }: Props) {
   const { slug } = await params
-  const project = await getProject(slug)
+  const [project, allSlugs] = await Promise.all([
+    getProject(slug),
+    getAllProjectSlugs()
+  ])
+  
   if (!project) notFound()
-  return <ProjectPageContent project={project} />
+
+  const currentIndex = allSlugs.indexOf(slug)
+  const prevSlug = currentIndex < allSlugs.length - 1 ? allSlugs[currentIndex + 1] : null
+  const nextSlug = currentIndex > 0 ? allSlugs[currentIndex - 1] : null
+
+  return (
+    <>
+      <ArchiveHeader />
+      <ProjectPageContent 
+        project={project} 
+        prevSlug={prevSlug}
+        nextSlug={nextSlug}
+      />
+    </>
+  )
 }

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useRef } from 'react';
+import { useRouter } from 'next/navigation';
 
 interface Project {
   title: string;
@@ -8,12 +9,14 @@ interface Project {
   date: string;
   format: string;
   coverHover?: string;
+  slug: string;
 }
 
 export default function ArchiveTable({ projects }: { projects: Project[] }) {
   const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
   const [mousePos, setMousePos] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
   const containerRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
 
   const handleMouseMove = (e: React.MouseEvent) => {
     if (!containerRef.current) return;
@@ -24,6 +27,10 @@ export default function ArchiveTable({ projects }: { projects: Project[] }) {
     });
   };
 
+  const handleRowClick = (slug: string) => {
+    router.push(`/project/${slug}`);
+  };
+
   // Large offset so cursor is in the upper left of the video
   const VIDEO_OFFSET_X = -30;
   const VIDEO_OFFSET_Y = -30;
@@ -31,36 +38,35 @@ export default function ArchiveTable({ projects }: { projects: Project[] }) {
   return (
     <div
       ref={containerRef}
-      className="relative min-h-screen bg-[#000000] text-white overflow-hidden"
+      className="relative min-h-screen bg-[#0d0d0d] overflow-hidden"
       onMouseMove={handleMouseMove}
     >
       <div className="overflow-x-auto relative z-10 flex justify-center">
-        <table className="w-full max-w-[1200px] border-collapse" style={{ mixBlendMode: "difference" }}>
+        <table className="w-full max-w-[1500px] border-collapse" >
           <thead>
             <tr>
-              <th className="text-left py-4 px-4 font-semibold">Project</th>
-              <th className="text-left py-4 px-4 font-semibold">Client</th>
-              <th className="text-left py-4 px-4 font-semibold">Year</th>
-              <th className="text-left py-4 px-4 font-semibold">Genre</th>
+              <th className="text-left py-10 px-4 font-[Helvetica] font-bold" style={{ color: '#ffffff' }}>Project</th>
+              <th className="text-left py-10 px-4 font-[Helvetica] font-bold" style={{ color: '#ffffff' }}>Client</th>
+              <th className="text-left py-10 px-4 font-[Helvetica] font-bold" style={{ color: '#ffffff' }}>Year</th>
+              <th className="text-left py-10 px-4 font-[Helvetica] font-bold" style={{ color: '#ffffff' }}>Genre</th>
             </tr>
           </thead>
           <tbody>
             {projects.map((project, index) => (
               <tr
                 key={index}
-                className="group border-b border-gray-800 cursor-pointer"
+                className="group border-b border-gray-800 cursor-pointer transition-colors" 
+                style={{ transition: 'color 0.0s' }}
+                onMouseEnter={() => setHoveredIdx(index)}
+                onMouseLeave={() => setHoveredIdx(null)}
+                onClick={() => handleRowClick(project.slug)}
               >
-                <td
-                  className="py-4 px-4 font-medium"
-                  style={{ transition: 'color 0.2s' }}
-                  onMouseEnter={() => setHoveredIdx(index)}
-                  onMouseLeave={() => setHoveredIdx(null)}
-                >
+                <td className="py-2 px-4 font-[Helvetica]" style={{ color: '#ffffff' }}>
                   {project.title}
                 </td>
-                <td className="py-4 px-4">{project.client}</td>
-                <td className="py-4 px-4">{project.date ? new Date(project.date).getFullYear() : '-'}</td>
-                <td className="py-4 px-4">{project.format}</td>
+                <td className="py-2 px-4 font-[Helvetica]" style={{ color: '#ffffff' }}>{project.client}</td>
+                <td className="py-2 px-4 font-[Helvetica]" style={{ color: '#ffffff' }}>{project.date ? new Date(project.date).getFullYear() : '-'}</td>
+                <td className="py-2 px-4 font-[Helvetica]" style={{ color: '#ffffff' }}>{project.format}</td>
               </tr>
             ))}
           </tbody>
@@ -78,9 +84,8 @@ export default function ArchiveTable({ projects }: { projects: Project[] }) {
             width: 640,
             height: 360,
             objectFit: 'cover',
-            mixBlendMode: 'normal',
+            mixBlendMode: 'difference',
             opacity: 0.8,
-            transition: 'left 0.1s, top 0.1s',
           }}
           autoPlay
           muted

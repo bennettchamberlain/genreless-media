@@ -80,7 +80,7 @@ export default async function ProjectLayout({
           <SanityLive onError={handleError} />
           <main className="">{children}</main>
           <div className="border-t-1 border-[#575757]">
-            <Footer backgroundColor="#000000" textColor="white" />
+            <Footer backgroundColor="#0d0d0d" textColor="white" />
           </div>
         </section>
         <SpeedInsights />

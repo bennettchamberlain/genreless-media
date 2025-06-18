@@ -40,57 +40,49 @@ export default function ProjectsGrid({ initialProjects }: ProjectsGridProps) {
   }
 
   return (
-    <div className="bg-[#e5e7e6] min-h-screen">
+    <div className="bg-[#dadad6] min-h-screen">
       {/* Filters Section */}
-      <div className="max-w-[1300px] mx-auto pl-12 pt-20">
+      <div className="max-w-[1800px] mx-auto pl-14 pt-0">
         
           <ul className="flex flex-col space-y-1">
             <li>
               <button
                 onClick={() => setSelectedCategory('selected')}
-                className={`text-left py-1 text-xs ${selectedCategory === 'selected' ? 'underline' : 'hover:underline'}`}
+                className={`text-left py-0 text-s font-[Helvetica] hover:text-[#fe2e2e] ${selectedCategory === 'selected' ? 'underline' : 'hover:underline'}`}
               >
-                selected
+                Selected
               </button>
             </li>
             <li>
               <button
                 onClick={() => setSelectedCategory('musicVideo')}
-                className={`text-left py-1 text-xs ${selectedCategory === 'musicVideo' ? 'underline' : 'hover:underline'}`}
+                className={`text-left py-0 text-s font-[Helvetica] hover:text-[#fe2e2e] ${selectedCategory === 'musicVideo' ? 'underline' : 'hover:underline'}`}
               >
-                music video
+                Music Video
               </button>
             </li>
             <li>
               <button
                 onClick={() => setSelectedCategory('documentary')}
-                className={`text-left py-1 text-xs ${selectedCategory === 'documentary' ? 'underline' : 'hover:underline'}`}
+                className={`text-left py-0 text-s font-[Helvetica] hover:text-[#fe2e2e] ${selectedCategory === 'documentary' ? 'underline' : 'hover:underline'}`}
               >
-                documentary
+                Documentary
               </button>
             </li>
             <li>
               <button
                 onClick={() => setSelectedCategory('photography')}
-                className={`text-left py-1 text-xs ${selectedCategory === 'photography' ? 'underline' : 'hover:underline'}`}
+                className={`text-left py-0 text-s font-[Helvetica] hover:text-[#fe2e2e] ${selectedCategory === 'photography' ? 'underline' : 'hover:underline'}`}
               >
-                photography
+                Photography
               </button>
             </li>
             <li>
               <button
                 onClick={() => setSelectedCategory('commercial')}
-                className={`text-left py-1 text-xs ${selectedCategory === 'commercial' ? 'underline' : 'hover:underline'}`}
+                className={`text-left py-0 text-s font-[Helvetica] hover:text-[#fe2e2e] ${selectedCategory === 'commercial' ? 'underline' : 'hover:underline'}`}
               >
-                commercial
-              </button>
-            </li>
-            <li>
-              <button
-                onClick={() => setSelectedCategory('genreless')}
-                className={`text-left py-1 text-xs ${selectedCategory === 'genreless' ? 'underline' : 'hover:underline'}`}
-              >
-                genreless
+                Commercial
               </button>
             </li>
           </ul>
@@ -98,13 +90,13 @@ export default function ProjectsGrid({ initialProjects }: ProjectsGridProps) {
       </div>
 
       {/* Projects Grid Section */}
-      <div className="max-w-[1200px] mx-auto p-8">
+      <div className="max-w-[1800px] mx-auto p-14">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16">
           {filteredProjects.map((project) => (
             <Link
               key={project._id}
               href={`/project/${project.slug}`}
-              className="group flex flex-col items-center bg-[#e5e7e6] overflow-hidden"
+              className="group flex flex-col items-center bg-[#dadad6] overflow-hidden"
             >
               <div className="relative w-full aspect-video bg-neutral-900">
                 {project.coverThumb && (
@@ -126,8 +118,8 @@ export default function ProjectsGrid({ initialProjects }: ProjectsGridProps) {
                   />
                 )}
               </div>
-              <div className="w-full px-4 py-3 bg-[#e5e7e6]">
-                <h3 className="text-black text-xs font-mono tracking-wide">
+              <div className="w-full px-4 py-3 bg-[#dadad6]">
+                <h3 className="text-black text-s font-[Helvetica] tracking-wide hover:text-[#fe2e2e]">
                   {project.title}
                 </h3>
               </div>

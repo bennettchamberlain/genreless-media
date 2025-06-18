@@ -1,7 +1,8 @@
 "use client"
-import React, { useState } from 'react'
+import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 
 interface Project {
   _id: string
@@ -11,87 +12,110 @@ interface Project {
   format?: string
   projectTypes?: string[]
   isSelected: boolean
-  description: string
   coverThumb?: string
   coverHover?: string
-  content: Array<{
-    type: 'image' | 'video'
+  mainGalleryMedia: {
+    type: 'image' | 'videoUpload' | 'vimeo' | 'youtube'
     image?: string
-    videoUrl?: string
+    videoFile?: string
+    vimeoUrl?: string
+    youtubeUrl?: string
+  }
+  content: Array<{
+    type: 'text' | 'image' | 'videoUpload' | 'vimeo' | 'youtube'
+    text?: string
+    image?: string
+    videoFile?: string
+    vimeoUrl?: string
+    youtubeUrl?: string
   }>
   date: string
 }
 
-const ProjectPageContent = (props: { project: Project }) => {
-  function PlayButton() {
-    return (
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <div className="bg-black/60 rounded-full p-4">
-          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="24" cy="24" r="24" fill="white" fillOpacity="0.7" />
-            <polygon points="20,16 34,24 20,32" fill="#111" />
-          </svg>
-        </div>
-      </div>
-    )
+interface Props {
+  project: Project
+  prevSlug: string | null
+  nextSlug: string | null
+}
+
+const getYouTubeEmbedUrl = (url: string) => {
+  // Handle different YouTube URL formats
+  const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/
+  const match = url.match(regExp)
+  const videoId = match && match[2].length === 11 ? match[2] : null
+  return videoId ? `https://www.youtube.com/embed/${videoId}` : url
+}
+
+const ProjectPageContent = ({ project, prevSlug, nextSlug }: Props) => {
+  const router = useRouter()
+
+  const handlePrev = () => {
+    if (prevSlug) {
+      router.push(`/project/${prevSlug}`)
+    }
   }
 
-  const { project } = props
-  const [current, setCurrent] = useState(0)
-  const currentItem = project.content[current]
-
-  const handlePrev = () => setCurrent((prev: number) => (prev - 1 + project.content.length) % project.content.length)
-  const handleNext = () => setCurrent((prev: number) => (prev + 1) % project.content.length)
-
-  // Show up to 3 content items after the first (main) one
-  const gridItems = project.content.slice(1, 4)
+  const handleNext = () => {
+    if (nextSlug) {
+      router.push(`/project/${nextSlug}`)
+    }
+  }
 
   return (
-    <main className="bg-black text-white flex flex-col items-center pb-20">
-      {/* Close Button Column */}
-      <div className="w-full max-w-[1300px] mt-8">
-        <Link 
-          href="/"
-          className="text-xstext-white underline hover:text-[#575757] transition-colors"
-        >
-          close
-        </Link>
-      </div>
-
-      {/* Gallery Column */}
-      <div className="w-full max-w-[1300px]">
-        <div className="relative w-full h-[45vw] max-h-[60vh] bg-black flex items-center justify-center">
-          {currentItem.type === 'image' && currentItem.image && (
-            <Image
-              src={currentItem.image}
-              alt="Project media"
-              fill
-              className="object-contain rounded-md"
-              priority
-            />
-          )}
-          {currentItem.type === 'video' && currentItem.videoUrl && (
-            <div className="w-full h-full flex items-center justify-center relative">
+    <main className="bg-[#0d0d0d] text-white flex flex-col items-center pb-20 pt-20 font-['Helvetica']">
+      {/* Main Gallery Media */}
+      {project.mainGalleryMedia && (
+        <div className="w-full max-w-[1300px]">
+          <div className="relative w-full aspect-video">
+            {project.mainGalleryMedia.type === 'image' && project.mainGalleryMedia.image && (
+              <Image
+                src={project.mainGalleryMedia.image}
+                alt="Main gallery media"
+                fill
+                className="object-cover"
+                priority
+              />
+            )}
+            {project.mainGalleryMedia.type === 'videoUpload' && project.mainGalleryMedia.videoFile && (
+              <video
+                src={project.mainGalleryMedia.videoFile}
+                className="w-full h-full object-cover"
+                autoPlay
+                muted={false}
+                playsInline
+                controls
+              />
+            )}
+            {project.mainGalleryMedia.type === 'vimeo' && project.mainGalleryMedia.vimeoUrl && (
               <iframe
-                src={`${currentItem.videoUrl}?background=1&autoplay=1&loop=1&byline=0&title=0&muted=0&controls=1`}
-                className="object-cover w-full h-full rounded-md"
+                src={`${project.mainGalleryMedia.vimeoUrl}?autoplay=1&muted=0&controls=1&showinfo=0&title=0&byline=0&portrait=0&background=1`}
+                className="w-full h-full"
                 allow="autoplay; fullscreen"
                 allowFullScreen
                 style={{ border: 'none' }}
               />
-            </div>
-          )}
+            )}
+            {project.mainGalleryMedia.type === 'youtube' && project.mainGalleryMedia.youtubeUrl && (
+              <iframe
+                src={`${getYouTubeEmbedUrl(project.mainGalleryMedia.youtubeUrl)}?autoplay=1&muted=0&controls=1&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3&fs=1&disablekb=1`}
+                className="w-full h-full"
+                allow="autoplay; fullscreen"
+                allowFullScreen
+                style={{ border: 'none' }}
+              />
+            )}
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Title and Navigation Column */}
-      <div className="w-full max-w-[1100px] mt-8">
-      <div className="w-full flex justify-end gap-4">
+      <div className="w-full max-w-[1300px] mt-8">
+        <div className="w-full flex justify-end gap-4">
           <button
             onClick={handlePrev}
-            disabled={current === 0}
+            disabled={!prevSlug}
             className={`text-white underline transition-colors ${
-              current === 0 
+              !prevSlug 
                 ? 'opacity-50 cursor-not-allowed' 
                 : 'hover:text-[#e5e7e6]'
             }`}
@@ -100,9 +124,9 @@ const ProjectPageContent = (props: { project: Project }) => {
           </button>
           <button
             onClick={handleNext}
-            disabled={current === project.content.length - 1}
+            disabled={!nextSlug}
             className={`text-white underline transition-colors ${
-              current === project.content.length - 1 
+              !nextSlug 
                 ? 'opacity-50 cursor-not-allowed' 
                 : 'hover:text-[#e5e7e6]'
             }`}
@@ -111,44 +135,57 @@ const ProjectPageContent = (props: { project: Project }) => {
           </button>
         </div>
         <h1 className="text-4xl md:text-5xl font-bold mb-4">{project.title}</h1>
-        
       </div>
 
-      {/* Description and Grid Column */}
-      <div className="w-full max-w-[1000px] mt-10">
+      {/* Grid Column */}
+      <div className="w-full max-w-[1300px] mt-10">
         <div className="grid grid-cols-2 gap-6">
-          {/* Description */}
-          <div className="bg-black/80 text-white pl-6 pr-6 rounded-md row-span-1 col-span-1">
-            <p className="text-base leading-relaxed">{project.description}</p>
-          </div>
-          {/* Content Thumbnails */}
           {project.content.map((item, idx) => (
-            <button
+            <div
               key={idx}
-              className={`relative aspect-[4/3] bg-black/40 rounded-md overflow-hidden focus:outline-none focus:ring-2 focus:ring-white ${current === idx ? 'ring-2 ring-white' : ''}`}
-              onClick={() => setCurrent(idx)}
+              className="relative aspect-[4/3] bg-black/40 rounded-md overflow-hidden"
             >
               {item.type === 'image' && item.image && (
                 <Image
                   src={item.image}
-                  alt={`Project grid ${idx + 1}`}
+                  alt={`Project content ${idx + 1}`}
                   fill
                   className="object-cover"
                 />
               )}
-              {item.type === 'video' && item.videoUrl && (
-                <div className="w-full h-full relative">
-                  <iframe
-                    src={`${item.videoUrl}?background=1&loop=1&byline=0&title=0&muted=1&controls=0&autoplay=0`}
-                    className="object-cover w-full h-full"
-                    allow="autoplay; fullscreen"
-                    allowFullScreen
-                    style={{ border: 'none' }}
-                  />
-                  <div className="absolute inset-0 bg-black/20 hover:bg-black/40 transition-colors cursor-pointer" />
+              {item.type === 'videoUpload' && item.videoFile && (
+                <video
+                  src={item.videoFile}
+                  className="object-cover w-full h-full"
+                  muted
+                  playsInline
+                  controls
+                />
+              )}
+              {item.type === 'vimeo' && item.vimeoUrl && (
+                <iframe
+                  src={`${item.vimeoUrl}?background=1&loop=1&byline=0&title=0&muted=0&controls=1&autoplay=0&dnt=1&transparent=0&app_id=122963`}
+                  className="object-cover w-full h-full"
+                  allow="fullscreen"
+                  allowFullScreen
+                  style={{ border: 'none', width: '100%', height: '100%', aspectRatio: '4/3' }}
+                />
+              )}
+              {item.type === 'youtube' && item.youtubeUrl && (
+                <iframe
+                  src={`${getYouTubeEmbedUrl(item.youtubeUrl)}?autoplay=0&controls=1&showinfo=1&rel=0&modestbranding=1&iv_load_policy=3&fs=1&disablekb=1`}
+                  className="object-cover w-full h-full"
+                  allow="fullscreen"
+                  allowFullScreen
+                  style={{ border: 'none', width: '100%', height: '100%' }}
+                />
+              )}
+              {item.type === 'text' && item.text && (
+                <div className="w-full h-full p-4 flex items-start justify-start">
+                  <p className="text-sm text-left">{item.text}</p>
                 </div>
               )}
-            </button>
+            </div>
           ))}
         </div>
       </div>

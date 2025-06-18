@@ -30,13 +30,13 @@ export default function LogoOverlay() {
       ref={logoRef}
       className={`z-60 transition-all duration-500 pointer-events-none ${
         stuck
-          ? "fixed top-0 left-4 w-40 h-10"
+          ? "fixed top-2 left-4 w-50 h-10"
           : "absolute" // Not fixed until stuck
       }`}
       style={{
-        bottom: stuck ? undefined : '4vh', 
+        bottom: stuck ? undefined : '7vh', 
         left: stuck ? undefined : '10vw',
-        width: stuck ? undefined : '900px',
+        width: stuck ? undefined : '1500px',
         height: stuck ? undefined : '200px',
         mixBlendMode: "difference",
       }}

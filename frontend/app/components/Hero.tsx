@@ -3,7 +3,7 @@ import LogoOverlay from "./LogoOverlay";
 
 export default function Hero() {
   return (
-    <div className="w-full h-screen relative bg-[#e5e7e6] overflow-hidden">
+    <div className="w-full h-screen relative bg-[#dadad6] overflow-hidden">
       {/* Video in top right */}
       <div className="absolute top-0 right-0 z-20 shadow-xl overflow-hidden" style={{ width: 1280, height: 720 }}>
         <iframe

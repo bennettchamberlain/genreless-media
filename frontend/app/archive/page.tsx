@@ -10,10 +10,10 @@ export default async function ArchivePage() {
   return (
     <>
       <ArchiveHeader />
-      <div className="h-20 bg-[#000000]"></div>
+      <div className="h-20 bg-[#0d0d0d]"></div>
       <ArchiveTable projects={projects} />
       <div className="border-t-1 border-[#575757]"></div>
-      <Footer backgroundColor="#000000" textColor="white" />
+      <Footer backgroundColor="#0d0d0d" textColor="white" />
     </>
   );
 }

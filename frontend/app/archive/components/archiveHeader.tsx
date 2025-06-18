@@ -5,22 +5,24 @@ import Image from "next/image";
 
 export default function archiveHeader() {
   return (
-    <div className="relative bg-[#000000]">
-      <div className="fixed top-2 left-4 h-8 w-[200px] z-50">
-        <Image
-          src="/images/g.M_logo.png"
-          alt="g.M Logo"
-          fill
-          className="object-contain select-none brightness-100 object-left"
-          priority
-          draggable={false}
-        />
+    <div className="relative bg-[#0d0d0d]">
+      <div className="fixed top-4 left-4 h-8 w-50 z-50">
+        <Link href="/">
+          <Image
+            src="/images/g.M_logo.png"
+            alt="g.M Logo"
+            fill
+            className="object-contain select-none brightness-100 object-left mix-blend-difference"
+            priority
+            draggable={false}
+          />
+        </Link>
       </div>
       <header 
-        className={`fixed z-40 h-10 inset-0 flex items-center transition-all duration-500
+        className={`fixed z-40 h-16 inset-0 flex items-center transition-all duration-500
           ${true ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-8'}
         `}
-        style={{ background: '#000000' }}
+        style={{ background: '#0d0d0d' }}
       >
         <div className="w-full pl-4 pr-4">
           <div className="flex items-center justify-end w-full">

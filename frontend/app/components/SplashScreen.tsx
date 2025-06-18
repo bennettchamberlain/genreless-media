@@ -2,16 +2,19 @@
 
 import React, { useEffect, useState, useRef } from 'react';
 
-const manifestoText = `we create timeless art that uplifts and sustains. we're deeply curious, rough around the edges, and united in our pursuit for meaningful connection.`;
+const manifestoText = `we create timeless art that uplifts and sustains. we're deeply curious, rough around the edges, and united in our pursuit for meaningful connection`;
 const roughText = 'rough around the edges';
-const dots = '.....';
+const dots = '...';
 
 export default function SplashScreen({ onFinish }: { onFinish: () => void }) {
   const [displayed, setDisplayed] = useState('');
   const [showButton, setShowButton] = useState(false);
   const [isTyping, setIsTyping] = useState(true);
+  const [showCursor, setShowCursor] = useState(true);
+  const [isDotsComplete, setIsDotsComplete] = useState(false);
   const indexRef = useRef(0);
   const dotRef = useRef(0);
+  const cursorIntervalRef = useRef<NodeJS.Timeout>();
 
   useEffect(() => {
     indexRef.current = 0;
@@ -19,15 +22,52 @@ export default function SplashScreen({ onFinish }: { onFinish: () => void }) {
     setDisplayed('');
     setShowButton(false);
     setIsTyping(true);
-    // Slower typing speeds
-    const typeSpeed = 45; // ms per char
-    const dotSpeed = 500; // ms per dot
+    setShowCursor(true);
+    setIsDotsComplete(false);
+
+    // Cursor blink effect
+    cursorIntervalRef.current = setInterval(() => {
+      setShowCursor(prev => !prev);
+    }, 530);
+
+    // Variable typing speeds
+    const getRandomTypeSpeed = () => {
+      const baseSpeed = Math.floor(Math.random() * (60 - 30) + 30); // Random between 30-60ms
+      
+      // Get current character and its position
+      const currentChar = manifestoText[indexRef.current];
+      const isLastChar = indexRef.current === manifestoText.length - 1;
+      const isFirstChar = indexRef.current === 0;
+      
+      // Add natural pauses for punctuation
+      if (currentChar === '.' || currentChar === ',' || currentChar === ' ') {
+        return baseSpeed + 200; // Longer pause for punctuation
+      }
+      
+      // Add slight pause at the start
+      if (isFirstChar) {
+        return baseSpeed + 150;
+      }
+      
+      // Add longer pause at the end
+      if (isLastChar) {
+        return baseSpeed + 250;
+      }
+      
+      // Randomly add occasional longer pauses for natural rhythm
+      if (Math.random() < 0.1) { // 10% chance
+        return baseSpeed + 150;
+      }
+      
+      return baseSpeed;
+    };
+    const dotSpeed = 800; // ms per dot
 
     function typeText() {
       if (indexRef.current < manifestoText.length) {
         setDisplayed(manifestoText.slice(0, indexRef.current + 1));
         indexRef.current++;
-        setTimeout(typeText, typeSpeed);
+        setTimeout(typeText, getRandomTypeSpeed());
       } else {
         typeDots();
       }
@@ -40,35 +80,73 @@ export default function SplashScreen({ onFinish }: { onFinish: () => void }) {
         setTimeout(typeDots, dotSpeed);
       } else {
         setIsTyping(false);
-        setTimeout(() => setShowButton(true), 400);
+        setIsDotsComplete(true);
+        setTimeout(() => {
+          setShowButton(true);
+        }, 400);
       }
     }
 
     typeText();
+
+    return () => {
+      if (cursorIntervalRef.current) {
+        clearInterval(cursorIntervalRef.current);
+      }
+    };
     // eslint-disable-next-line
   }, []);
 
-  // Remove italics from 'rough around the edges'
   function renderText() {
-    return displayed;
+    const currentIndex = indexRef.current;
+    const roughStartIndex = manifestoText.indexOf(roughText);
+    const roughEndIndex = roughStartIndex + roughText.length;
+    
+    // Only show text up to current typing position
+    const textToShow = displayed;
+    
+    if (currentIndex > roughStartIndex) {
+      // We're either typing or have finished typing the rough text
+      const beforeRough = textToShow.slice(0, roughStartIndex);
+      const roughText = textToShow.slice(roughStartIndex, Math.min(currentIndex, roughEndIndex));
+      const afterRough = currentIndex > roughEndIndex ? textToShow.slice(roughEndIndex) : '';
+      
+      return (
+        <span style={{ fontFamily: 'Helvetica', fontWeight: 'normal' }}>
+          {beforeRough}
+          <span style={{ fontFamily: 'Helvetica', fontStyle: 'italic', fontWeight: 'normal' }}>{roughText}</span>
+          {afterRough}
+          {showCursor && '|'}
+        </span>
+      );
+    }
+    
+    return (
+      <span style={{ fontFamily: 'Helvetica', fontWeight: 'normal' }}>
+        {textToShow}
+        {showCursor && '|'}
+      </span>
+    );
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex flex-col items-center justify-start bg-gray-50 pt-32" style={{ minHeight: '100vh' }}>
-      <div className="flex flex-row items-start text-left ml-[-10rem]">
-        <span className="text-3xl md:text-4xl font-medium text-[#091ebc] leading-tight select-none" style={{minWidth: '2ch', width: '2ch', textAlign: 'right'}}>&gt;</span>
-        <span className="text-3xl md:text-4xl font-medium text-[#091ebc] leading-tight whitespace-pre-line w-[32rem] ml-2 block" style={{minHeight: '8.5rem'}}>
+    <div className="fixed inset-0 z-50 flex flex-col items-center justify-start bg-[#dadad6] pt-32" style={{ minHeight: '100vh' }}>
+      <div className="flex flex-row items-start text-left ml-[-20rem] sm:ml-[-25rem] md:ml-[-25rem] lg:ml-[-25rem] xl:ml-[-40rem]">
+        <span className="text-5xl md:text-5xl font-medium text-[#1a21a5] leading-tight select-none" style={{minWidth: '2ch', width: '2ch', textAlign: 'right', fontFamily: 'Helvetica', fontWeight: 'normal'}}>&gt;</span>
+        <span className="text-5xl md:text-5xl font-medium text-[#1a21a5] leading-tight whitespace-pre-line w-[50rem] ml-2 block" style={{minHeight: '8.5rem', fontFamily: 'Helvetica', fontWeight: 'normal'}}>
           {renderText()}
         </span>
       </div>
       {showButton && (
-        <button
-          className="mt-24 text-3xl underline underline-offset-4 text-black transition-opacity duration-500 ml-52 hover:text-[#091ebc]"
-          style={{ opacity: showButton ? 1 : 0 }}
-          onClick={onFinish}
-        >
-          ENTER SITE
-        </button>
+        <div className="absolute inset-0 flex items-center justify-center mt-50 sm:mt-0 md:mt-0 lg:mt-40 xl:mt-50">
+          <button
+            className="text-5xl underline underline-offset-4 text-black transition-opacity duration-500 hover:text-[#fe2e2e] cursor-pointer"
+            style={{ opacity: showButton ? 1 : 0 }}
+            onClick={onFinish}
+          >
+            ENTER SITE
+          </button>
+        </div>
       )}
     </div>
   );
