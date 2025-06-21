@@ -34,7 +34,7 @@ export default function LogoOverlay() {
           : "relative" // Not fixed until stuck
       }`}
       style={{
-        top: stuck ? undefined : '65vh', 
+        top: stuck ? undefined : '45vh', 
         left: stuck ? undefined : '10vw',
         width: stuck ? undefined : '1500px',
         height: stuck ? undefined : '200px',
