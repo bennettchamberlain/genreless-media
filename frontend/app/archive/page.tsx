@@ -11,6 +11,7 @@ export default async function ArchivePage() {
     <>
       <ArchiveHeader />
       <div className="h-20 bg-[#0d0d0d]"></div>
+      <div className="h-16 bg-[#0d0d0d]"></div>
       <ArchiveTable projects={projects} />
       <div className="border-t-1 border-[#575757]"></div>
       <Footer backgroundColor="#0d0d0d" textColor="white" />

@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation'
 interface Project {
   _id: string
   title: string
+  description: string
   slug: string
   client?: string
   format?: string
@@ -65,7 +66,7 @@ const ProjectPageContent = ({ project, prevSlug, nextSlug }: Props) => {
     <main className="bg-[#0d0d0d] text-white flex flex-col items-center pb-20 pt-20 font-['Helvetica']">
       {/* Main Gallery Media */}
       {project.mainGalleryMedia && (
-        <div className="w-full max-w-[1300px]">
+        <div className="w-full max-w-[1400px]">
           <div className="relative w-full aspect-video">
             {project.mainGalleryMedia.type === 'image' && project.mainGalleryMedia.image && (
               <Image
@@ -88,7 +89,7 @@ const ProjectPageContent = ({ project, prevSlug, nextSlug }: Props) => {
             )}
             {project.mainGalleryMedia.type === 'vimeo' && project.mainGalleryMedia.vimeoUrl && (
               <iframe
-                src={`${project.mainGalleryMedia.vimeoUrl}?autoplay=1&muted=0&controls=1&showinfo=0&title=0&byline=0&portrait=0&background=1`}
+                src={`${project.mainGalleryMedia.vimeoUrl}?autoplay=1&muted=0&controls=1&showinfo=0&title=0&byline=0&portrait=0`}
                 className="w-full h-full"
                 allow="autoplay; fullscreen"
                 allowFullScreen
@@ -111,17 +112,8 @@ const ProjectPageContent = ({ project, prevSlug, nextSlug }: Props) => {
       {/* Title and Navigation Column */}
       <div className="w-full max-w-[1300px] mt-8 mr-4 sm:mr-4 md:mr-4 lg:mr-4 xl:mr-0">
         <div className="w-full flex justify-end gap-4">
-          <button
-            onClick={handlePrev}
-            disabled={!prevSlug}
-            className={`text-white underline transition-colors ${
-              !prevSlug 
-                ? 'opacity-50 cursor-not-allowed' 
-                : 'hover:text-[#e5e7e6]'
-            }`}
-          >
-            Previous
-          </button>
+          
+          
           <button
             onClick={handleNext}
             disabled={!nextSlug}
@@ -131,10 +123,22 @@ const ProjectPageContent = ({ project, prevSlug, nextSlug }: Props) => {
                 : 'hover:text-[#e5e7e6]'
             }`}
           >
+            Previous
+          </button>
+          <button
+            onClick={handlePrev}
+            disabled={!prevSlug}
+            className={`text-white underline transition-colors ${
+              !prevSlug 
+                ? 'opacity-50 cursor-not-allowed' 
+                : 'hover:text-[#e5e7e6]'
+            }`}
+          >
             Next
           </button>
         </div>
         <h1 className="text-4xl md:text-5xl font-bold mt-8 ml-4 sm:ml-4 md:ml-4 lg:ml-4 xl:ml-0 font-['Helvetica']">{project.title}</h1>
+        <p className="text-s ml-4 sm:ml-4 md:ml-4 lg:ml-4 xl:ml-0 font-['Helvetica']">{project.description}</p>
       </div>
 
       {/* Grid Column */}
@@ -143,7 +147,7 @@ const ProjectPageContent = ({ project, prevSlug, nextSlug }: Props) => {
           {project.content.map((item, idx) => (
             <div
               key={idx}
-              className="relative aspect-[4/3] bg-black/40 rounded-md overflow-hidden"
+              className="relative aspect-[4/3] bg-black/40 overflow-hidden"
             >
               {item.type === 'image' && item.image && (
                 <Image
@@ -164,7 +168,7 @@ const ProjectPageContent = ({ project, prevSlug, nextSlug }: Props) => {
               )}
               {item.type === 'vimeo' && item.vimeoUrl && (
                 <iframe
-                  src={`${item.vimeoUrl}?background=1&loop=1&byline=0&title=0&muted=0&controls=1&autoplay=0&dnt=1&transparent=0&app_id=122963`}
+                  src={`${item.vimeoUrl}?loop=1&byline=0&title=0&muted=0&controls=1&autoplay=0&dnt=1&transparent=0&app_id=122963`}
                   className="object-cover w-full h-full"
                   allow="fullscreen"
                   allowFullScreen

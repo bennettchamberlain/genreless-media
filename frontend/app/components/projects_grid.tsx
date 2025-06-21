@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { Image } from 'next-sanity/image';
 import Link from 'next/link';
 import { urlForImage } from '@/sanity/lib/utils';
@@ -30,6 +30,14 @@ type ProjectsGridProps = {
 export default function ProjectsGrid({ initialProjects }: ProjectsGridProps) {
   const [projects] = useState<Project[]>(initialProjects);
   const [selectedCategory, setSelectedCategory] = useState<string>('selected');
+  const videoRefs = useRef<{ [key: string]: HTMLVideoElement | null }>({});
+
+  const handleVideoHover = (projectId: string) => {
+    const video = videoRefs.current[projectId];
+    if (video) {
+      video.currentTime = 0;
+    }
+  };
 
   const filteredProjects = selectedCategory === 'selected'
     ? projects.filter(project => project.isSelected)
@@ -90,8 +98,8 @@ export default function ProjectsGrid({ initialProjects }: ProjectsGridProps) {
       </div>
 
       {/* Projects Grid Section */}
-      <div className="max-w-[1800px] mx-auto p-14">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16">
+      <div className="max-w-[1800px] mx-auto pl-14 pr-14 pt-2">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12">
           {filteredProjects.map((project) => (
             <Link
               key={project._id}
@@ -109,16 +117,20 @@ export default function ProjectsGrid({ initialProjects }: ProjectsGridProps) {
                 )}
                 {project.coverHover && (
                   <video
+                    ref={(el) => {
+                      videoRefs.current[project._id] = el;
+                    }}
                     src={project.coverHover.toString()}
                     className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                     autoPlay
                     muted
                     loop
                     playsInline
+                    onMouseEnter={() => handleVideoHover(project._id)}
                   />
                 )}
               </div>
-              <div className="w-full px-4 py-3 bg-[#dadad6]">
+              <div className="w-full py-2 bg-[#dadad6]">
                 <h3 className="text-black text-s font-[Helvetica] tracking-wide hover:text-[#fe2e2e]">
                   {project.title}
                 </h3>

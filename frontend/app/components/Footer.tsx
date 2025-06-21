@@ -35,7 +35,7 @@ export default function Footer({
           <div className="flex flex-col h-full py-1">
             <div className={`font-[Helvetica] text-sm mb-4 mt-2 text-${textColor}`}>Los Angeles, CA, USA</div>
             <div className="flex-1 hidden lg:block" />
-            <div className={`font-[Helvetica] text-sm mb-2 text-${textColor}`}>Creative Production Company</div>
+            <div className={`font-[Helvetica] text-sm mb-2 text-${textColor}`}>creative production company</div>
           </div>
         </div>
         {/* Column 3 */}
@@ -45,7 +45,7 @@ export default function Footer({
               <a href="https://www.instagram.com/genreless.media/" 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className={`mt-2 font-sans text-sm underline-offset-2 hover:underline text-${textColor}`}>
+                className={`mt-2 font-sans text-sm underline-offset-2 hover:underline hover:text-[#fe2e2e] text-${textColor}`}>
                 Instagram
               </a>
             </div>
@@ -53,7 +53,7 @@ export default function Footer({
             <a href="mailto:studio@genreless.media" 
               target="_blank" 
               rel="noopener noreferrer" 
-              className={`mb-2 font-sans text-sm underline-offset-2 hover:underline text-${textColor}`}>
+              className={`mb-2 font-sans text-sm underline-offset-2 hover:underline hover:text-[#fe2e2e] text-${textColor}`}>
               Contact Us
             </a>
           </div>

@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 
 interface Project {
   title: string;
+  ourRole: string;
   client: string;
   date: string;
   format: string;
@@ -42,20 +43,21 @@ export default function ArchiveTable({ projects }: { projects: Project[] }) {
       onMouseMove={handleMouseMove}
     >
       <div className="overflow-x-auto relative z-10 flex justify-center">
-        <table className="w-full max-w-[1500px] border-collapse" >
+        <table className="w-full max-w-[1600px] border-collapse" >
           <thead>
             <tr>
               <th className="text-left py-10 px-4 font-[Helvetica] font-bold" style={{ color: '#ffffff' }}>Project</th>
               <th className="text-left py-10 px-4 font-[Helvetica] font-bold" style={{ color: '#ffffff' }}>Client</th>
               <th className="text-left py-10 px-4 font-[Helvetica] font-bold" style={{ color: '#ffffff' }}>Year</th>
               <th className="text-left py-10 px-4 font-[Helvetica] font-bold" style={{ color: '#ffffff' }}>Genre</th>
+              <th className="text-left py-10 px-4 font-[Helvetica] font-bold" style={{ color: '#ffffff' }}>Our role</th>
             </tr>
           </thead>
           <tbody>
             {projects.map((project, index) => (
               <tr
                 key={index}
-                className="group border-b border-gray-800 cursor-pointer transition-colors" 
+                className="group cursor-pointer transition-colors" 
                 style={{ transition: 'color 0.0s' }}
                 onMouseEnter={() => setHoveredIdx(index)}
                 onMouseLeave={() => setHoveredIdx(null)}
@@ -67,6 +69,7 @@ export default function ArchiveTable({ projects }: { projects: Project[] }) {
                 <td className="py-2 px-4 font-[Helvetica]" style={{ color: '#ffffff' }}>{project.client}</td>
                 <td className="py-2 px-4 font-[Helvetica]" style={{ color: '#ffffff' }}>{project.date ? new Date(project.date).getFullYear() : '-'}</td>
                 <td className="py-2 px-4 font-[Helvetica]" style={{ color: '#ffffff' }}>{project.format}</td>
+                <td className="py-2 px-4 font-[Helvetica]" style={{ color: '#ffffff' }}>{project.ourRole}</td>
               </tr>
             ))}
           </tbody>

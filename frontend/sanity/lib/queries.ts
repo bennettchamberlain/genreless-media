@@ -100,6 +100,8 @@ export const allProjectsQuery = defineQuery(`
   *[_type == "project" && defined(slug.current)] | order(date desc) {
     _id,
     title,
+    description,
+    ourRole,
     client,
     format,
     "slug": slug.current,
@@ -130,6 +132,8 @@ export const projectQuery = defineQuery(`
   *[_type == "project" && slug.current == $slug][0] {
     _id,
     title,
+    description,
+    ourRole,
     client,
     format,
     "slug": slug.current,

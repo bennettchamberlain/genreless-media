@@ -41,27 +41,27 @@ export default function SplashScreen({ onFinish }: { onFinish: () => void }) {
       
       // Add natural pauses for punctuation
       if (currentChar === '.' || currentChar === ',' || currentChar === ' ') {
-        return baseSpeed + 200; // Longer pause for punctuation
+        return baseSpeed + 100; // Longer pause for punctuation
       }
       
       // Add slight pause at the start
       if (isFirstChar) {
-        return baseSpeed + 150;
+        return baseSpeed + 100;
       }
       
       // Add longer pause at the end
       if (isLastChar) {
-        return baseSpeed + 250;
+        return baseSpeed + 150;
       }
       
       // Randomly add occasional longer pauses for natural rhythm
       if (Math.random() < 0.1) { // 10% chance
-        return baseSpeed + 150;
+        return baseSpeed + 100;
       }
       
       return baseSpeed;
     };
-    const dotSpeed = 800; // ms per dot
+    const dotSpeed = 700; // ms per dot
 
     function typeText() {
       if (indexRef.current < manifestoText.length) {
@@ -112,7 +112,13 @@ export default function SplashScreen({ onFinish }: { onFinish: () => void }) {
       const afterRough = currentIndex > roughEndIndex ? textToShow.slice(roughEndIndex) : '';
       
       return (
-        <span style={{ fontFamily: 'Helvetica', fontWeight: 'normal' }}>
+        <span style={{ 
+          fontFamily: 'Helvetica', 
+          fontWeight: 'normal', 
+          display: 'inline-block',
+          transform: 'scaleY(1.14)',
+          transformOrigin: 'left top'
+        }}>
           {beforeRough}
           <span style={{ fontFamily: 'Helvetica', fontStyle: 'italic', fontWeight: 'normal' }}>{roughText}</span>
           {afterRough}
@@ -122,7 +128,13 @@ export default function SplashScreen({ onFinish }: { onFinish: () => void }) {
     }
     
     return (
-      <span style={{ fontFamily: 'Helvetica', fontWeight: 'normal' }}>
+      <span style={{ 
+        fontFamily: 'Helvetica', 
+        fontWeight: 'normal',
+        display: 'inline-block',
+        transform: 'scaleY(1.14)',
+        transformOrigin: 'left top'
+      }}>
         {textToShow}
         {showCursor && '|'}
       </span>
@@ -130,10 +142,10 @@ export default function SplashScreen({ onFinish }: { onFinish: () => void }) {
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex flex-col items-center justify-start bg-[#dadad6] pt-32" style={{ minHeight: '100vh' }}>
-      <div className="flex flex-row items-start text-left ml-[-20rem] sm:ml-[-25rem] md:ml-[-25rem] lg:ml-[-25rem] xl:ml-[-40rem]">
-        <span className="text-5xl md:text-5xl font-medium text-[#1a21a5] leading-tight select-none" style={{minWidth: '2ch', width: '2ch', textAlign: 'right', fontFamily: 'Helvetica', fontWeight: 'normal'}}>&gt;</span>
-        <span className="text-5xl md:text-5xl font-medium text-[#1a21a5] leading-tight whitespace-pre-line w-[50rem] ml-2 block" style={{minHeight: '8.5rem', fontFamily: 'Helvetica', fontWeight: 'normal'}}>
+    <div className="fixed inset-0 z-50 flex flex-col items-center justify-start bg-[#dadad6] pt-16 sm:pt-32" style={{ minHeight: '100vh' }}>
+      <div className="flex flex-row items-start text-left px-4 sm:px-0 ml-[0rem] sm:ml-[-5rem] md:ml-[-15rem] lg:ml-[-15rem] xl:ml-[-30rem]">
+        <span className="text-2xl sm:text-4xl md:text-4xl font-medium text-[#1a21a5] leading-tight select-none" style={{minWidth: '2ch', width: '2ch', textAlign: 'right', fontFamily: 'Helvetica', fontWeight: 'normal', display: 'inline-block', transform: 'scaleY(1.14)', transformOrigin: 'left top'}}>&gt;</span>
+        <span className="text-2xl sm:text-4xl md:text-4xl font-medium text-[#1a21a5] leading-tight whitespace-pre-line w-[20rem] sm:w-[30rem] md:w-[40rem] ml-2 block" style={{minHeight: '6rem', fontFamily: 'Helvetica', fontWeight: 'normal', display: 'inline-block', transform: 'scaleY(1.14)', transformOrigin: 'left top'}}>
           {renderText()}
         </span>
       </div>

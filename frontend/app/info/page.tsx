@@ -19,8 +19,8 @@ function EnvelopeIcon() {
 
 const InfoHeader = () => {
   return (
-    <div className="relative bg-[#e5e7e6]">
-      <div className="fixed top-0 left-4 h-8 w-[200px] z-50">
+    <div className="relative">
+      <div className="fixed top-2 left-4 h-8 w-[200px] z-50">
         <Image
           src="/images/g.M_logo.png"
           alt="g.M Logo"
@@ -34,7 +34,7 @@ const InfoHeader = () => {
         className={`fixed z-40 h-10 inset-0 flex items-center transition-all duration-500
           ${true ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-8'}
         `}
-        style={{ background: '#e5e7e6' }}
+       
       >
         <div className="w-full pl-4 pr-4">
           <div className="flex items-center justify-end w-full">
@@ -42,16 +42,16 @@ const InfoHeader = () => {
               <div className="flex-1" />
             </div>
 
-            <div className="flex flex-col lg:basis-1/6 px-2 items-end">
+            <div className="flex flex-col pt-2 lg:basis-1/6 px-2 items-end">
               <div className="flex-1" />
-              <Link href="/archive" className="text-s font-semibold hover:underline" >
+              <Link href="/archive" className="text-s hover:underline" >
                 Archive
               </Link>
             </div>
 
-            <div className="flex flex-col lg:basis-1/6 px-2 items-end">
+            <div className="flex flex-col pt-2 lg:basis-1/6 px-2 items-end">
               <div className="flex-1" />
-              <Link href="/info" className="text-s font-semibold hover:underline" >
+              <Link href="/info" className="text-s hover:underline" >
                 Info
               </Link>
             </div>
@@ -83,7 +83,7 @@ export default function InfoPage() {
           <a href="https://open.spotify.com/user/31w3k2w3k2w3k2w3k2w3k2w3k2w3k2w3" className="underline hover:opacity-80" target="_blank" rel="noopener noreferrer">spotify</a> &{' '}
           <a href="https://www.youtube.com/@genrelessmedia" className="underline hover:opacity-80" target="_blank" rel="noopener noreferrer">youtube</a>
         </div>
-        <Footer backgroundColor="#091ebc" textColor="white" />
+        <Footer backgroundColor="#1a21a5" textColor="white" />
       </div>
     </div>
   );
