@@ -3,6 +3,12 @@ import { Link } from "@/sanity.types";
 import { dataset, projectId, studioUrl } from "@/sanity/lib/api";
 import { createDataAttribute, CreateDataAttributeProps } from "next-sanity";
 import { getImageDimensions } from "@sanity/asset-utils";
+import classNames from "classnames";
+
+// Utility function for conditional class names
+export const cn = (...classes: (string | undefined | null | false)[]) => {
+  return classNames(classes);
+};
 
 const imageBuilder = createImageUrlBuilder({
   projectId: projectId || "",

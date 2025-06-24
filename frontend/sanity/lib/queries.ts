@@ -53,6 +53,24 @@ export const getPageQuery = defineQuery(`
   }
 `);
 
+
+export const productFields = /* groq */ `
+_type == "product" => {
+  _id,
+  title,
+  "slug": slug.current,
+  id,
+  price,
+  salePrice,
+  description,
+  category,
+  inStock,
+  "images": images[]{
+    "url": asset->url,
+    "alt": alt
+  }
+}`;
+
 export const sitemapData = defineQuery(`
   *[_type == "page" || _type == "post" && defined(slug.current)] | order(_type asc) {
     "slug": slug.current,
@@ -163,5 +181,11 @@ export const projectQuery = defineQuery(`
 export const allProjectSlugsQuery = defineQuery(`
   *[_type == "project" && defined(slug.current)] | order(date desc) {
     "slug": slug.current
+  }
+`);
+
+export const cartProductsQuery = defineQuery(`
+  *[_type == "product" && _id in $productIds] {
+    ${productFields}
   }
 `);

@@ -30,25 +30,28 @@ export default function LogoOverlay() {
       ref={logoRef}
       className={`z-60 transition-all duration-500 pointer-events-none ${
         stuck
-          ? "fixed top-2 left-4 w-50 h-10"
+          ? "fixed top-2 left-4 w-12 h-8 md:w-60 md:h-10"
           : "relative" // Not fixed until stuck
       }`}
       style={{
-        top: stuck ? undefined : '45vh', 
+        top: stuck ? undefined : '10vh', 
         left: stuck ? undefined : '10vw',
-        width: stuck ? undefined : '1500px',
-        height: stuck ? undefined : '200px',
+        width: stuck ? undefined : 'min(90vw, 1500px)',
+        height: stuck ? undefined : 'min(20vh, 200px)',
         mixBlendMode: "difference",
       }}
     >
-      <Image
-        src="/images/g.M_logo.png"
-        alt="G.M Logo"
-        fill
-        className="object-contain select-none"
-        priority
-        draggable={false}
-      />
+      {/* Show logo on mobile only when not stuck, always show on desktop */}
+      <div className={`${stuck ? 'hidden md:block' : 'block'}`}>
+        <Image
+          src="/images/g.M_logo.png"
+          alt="G.M Logo"
+          fill
+          className="object-contain select-none"
+          priority
+          draggable={false}
+        />
+      </div>
     </div>
   );
 } 

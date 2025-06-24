@@ -35,14 +35,21 @@ export default function Header() {
 
           <div className="flex flex-col lg:basis-1/6 px-2 pt-2">
             <div className="flex-1" />
-            <Link href="/archive" className="text-s font-bold hover:underline text-right text-white">
+            <Link href="/archive" className="text-s hover:underline text-right text-white">
               Archive
             </Link>
           </div>
 
           <div className="flex flex-col lg:basis-1/6 px-2 pt-2">
             <div className="flex-1" />
-            <Link href="/info" className="text-s font-bold hover:underline text-right text-white">
+            <Link href="/products" className="text-s hover:underline text-right text-white">
+              Shop
+            </Link>
+          </div>
+
+          <div className="flex flex-col lg:basis-1/6 px-2 pt-2">
+            <div className="flex-1" />
+            <Link href="/info" className="text-s hover:underline text-right text-white">
               Info
             </Link>
           </div>
