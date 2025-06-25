@@ -6,13 +6,13 @@ import Image from "next/image";
 export default function archiveHeader() {
   return (
     <div className="relative">
-      <div className="fixed top-4 left-4 h-8 w-50 z-50">
+      <div className="fixed top-4 left-4 h-8 w-50 z-50" style={{ mixBlendMode: 'difference' }}>
         <Link href="/">
           <Image
             src="/images/g.M_logo.png"
             alt="g.M Logo"
             fill
-            className="object-contain select-none brightness-100 object-left mix-blend-difference"
+            className="object-contain select-none brightness-100 object-left"
             priority
             draggable={false}
           />
@@ -36,21 +36,21 @@ export default function archiveHeader() {
 
             <div className="flex flex-col lg:basis-1/6 px-2 pt-2">
               <div className="flex-1" />
-              <Link href="/archive" className="text-s hover:underline text-right text-white">
+              <Link href="/archive" className="text-s hover:underline text-right text-white" style={{ mixBlendMode: 'difference' }}>
                 Archive
               </Link>
             </div>
 
             <div className="flex flex-col lg:basis-1/6 px-2 pt-2">
               <div className="flex-1" />
-              <Link href="/products" className="text-s hover:underline text-right text-white">
+              <Link href="/products" className="text-s hover:underline text-right text-white" style={{ mixBlendMode: 'difference' }}>
                 Shop
               </Link>
             </div>
 
             <div className="flex flex-col lg:basis-1/6 px-2 pt-2">
               <div className="flex-1" />
-              <Link href="/info" className="text-s hover:underline text-right text-white">
+              <Link href="/info" className="text-s hover:underline text-right text-white" style={{ mixBlendMode: 'difference' }}>
                 Info
               </Link>
             </div>

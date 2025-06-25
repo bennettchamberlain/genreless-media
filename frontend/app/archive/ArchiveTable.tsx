@@ -84,8 +84,8 @@ export default function ArchiveTable({ projects }: { projects: Project[] }) {
           style={{
             left: mousePos.x + VIDEO_OFFSET_X,
             top: mousePos.y + VIDEO_OFFSET_Y,
-            width: 640,
-            height: 360,
+            width: 'clamp(320px, 40vw, 640px)',
+            height: 'clamp(180px, 22.5vw, 360px)',
             objectFit: 'cover',
             mixBlendMode: 'difference',
             opacity: 0.8,

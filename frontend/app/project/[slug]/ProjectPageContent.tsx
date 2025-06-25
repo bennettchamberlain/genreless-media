@@ -23,12 +23,15 @@ interface Project {
     youtubeUrl?: string
   }
   content: Array<{
-    type: 'text' | 'image' | 'videoUpload' | 'vimeo' | 'youtube'
-    text?: string
-    image?: string
-    videoFile?: string
-    vimeoUrl?: string
-    youtubeUrl?: string
+    aspectRatio: string
+    items: Array<{
+      type: 'text' | 'image' | 'videoUpload' | 'vimeo' | 'youtube'
+      text?: string
+      image?: string
+      videoFile?: string
+      vimeoUrl?: string
+      youtubeUrl?: string
+    }>
   }>
   date: string
 }
@@ -138,57 +141,71 @@ const ProjectPageContent = ({ project, prevSlug, nextSlug }: Props) => {
           </button>
         </div>
         <h1 className="text-4xl md:text-5xl font-bold mt-10 ml-4 sm:ml-4 md:ml-4 lg:ml-4 xl:ml-0 font-['Helvetica']">{project.title}</h1>
-        <p className="text-s mt-2 sm:ml-4 md:ml-4 lg:ml-4 xl:ml-0 font-['Helvetica']">{project.description}</p>
+        {/* <p className=" text-s mt-2 sm:ml-4 md:ml-4 lg:ml-4 xl:ml-0 font-['Helvetica']">{project.description}</p> */}
       </div>
 
       {/* Grid Column */}
       <div className="w-full max-w-[1300px] mt-10 px-4 sm:px-4 md:px-4 lg:px-4 xl:px-0">
-        <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 gap-6">
-          {project.content.map((item, idx) => (
+        <div className="space-y-6">
+          {project.content && project.content.map((row, rowIdx) => (
             <div
-              key={idx}
-              className="relative aspect-[4/3] bg-black/40 overflow-hidden"
+              key={rowIdx}
+              className={`grid gap-6 ${
+                !row.items || row.items.length === 1 
+                  ? 'grid-cols-1' 
+                  : row.items.length === 2 
+                    ? 'grid-cols-1 md:grid-cols-2' 
+                    : 'grid-cols-1 md:grid-cols-3'
+              }`}
             >
-              {item.type === 'image' && item.image && (
-                <Image
-                  src={item.image}
-                  alt={`Project content ${idx + 1}`}
-                  fill
-                  className="object-cover"
-                />
-              )}
-              {item.type === 'videoUpload' && item.videoFile && (
-                <video
-                  src={item.videoFile}
-                  className="object-cover w-full h-full"
-                  muted
-                  playsInline
-                  controls
-                />
-              )}
-              {item.type === 'vimeo' && item.vimeoUrl && (
-                <iframe
-                  src={`${item.vimeoUrl}?loop=1&byline=0&title=0&muted=0&controls=1&autoplay=0&dnt=1&transparent=0&app_id=122963`}
-                  className="object-cover w-full h-full"
-                  allow="fullscreen"
-                  allowFullScreen
-                  style={{ border: 'none', width: '100%', height: '100%', aspectRatio: '4/3' }}
-                />
-              )}
-              {item.type === 'youtube' && item.youtubeUrl && (
-                <iframe
-                  src={`${getYouTubeEmbedUrl(item.youtubeUrl)}?autoplay=0&controls=1&showinfo=1&rel=0&modestbranding=1&iv_load_policy=3&fs=1&disablekb=1`}
-                  className="object-cover w-full h-full"
-                  allow="fullscreen"
-                  allowFullScreen
-                  style={{ border: 'none', width: '100%', height: '100%' }}
-                />
-              )}
-              {item.type === 'text' && item.text && (
-                <div className="w-full h-full p-4 flex items-start justify-start">
-                  <p className="text-sm text-left">{item.text}</p>
+              {row.items && row.items.map((item, itemIdx) => (
+                <div
+                  key={itemIdx}
+                  className={`relative bg-[#0d0d0d] overflow-hidden`}
+                  style={{ aspectRatio: row.aspectRatio }}
+                >
+                  {item.type === 'image' && item.image && (
+                    <Image
+                      src={item.image}
+                      alt={`Project content ${rowIdx + 1}-${itemIdx + 1}`}
+                      fill
+                      className="object-cover"
+                    />
+                  )}
+                  {item.type === 'videoUpload' && item.videoFile && (
+                    <video
+                      src={item.videoFile}
+                      className="object-cover w-full h-full"
+                      muted
+                      playsInline
+                      controls
+                    />
+                  )}
+                  {item.type === 'vimeo' && item.vimeoUrl && (
+                    <iframe
+                      src={`${item.vimeoUrl}?loop=1&byline=0&title=0&muted=0&controls=1&autoplay=0&dnt=1&transparent=0&app_id=122963`}
+                      className="object-cover w-full h-full"
+                      allow="fullscreen"
+                      allowFullScreen
+                      style={{ border: 'none', width: '100%', height: '100%' }}
+                    />
+                  )}
+                  {item.type === 'youtube' && item.youtubeUrl && (
+                    <iframe
+                      src={`${getYouTubeEmbedUrl(item.youtubeUrl)}?autoplay=0&controls=1&showinfo=1&rel=0&modestbranding=1&iv_load_policy=3&fs=1&disablekb=1`}
+                      className="object-cover w-full h-full"
+                      allow="fullscreen"
+                      allowFullScreen
+                      style={{ border: 'none', width: '100%', height: '100%' }}
+                    />
+                  )}
+                  {item.type === 'text' && item.text && (
+                    <div className="w-full h-full p-4 flex items-start justify-start">
+                      <p className="text-sm text-left whitespace-pre-wrap">{item.text}</p>
+                    </div>
+                  )}
                 </div>
-              )}
+              ))}
             </div>
           ))}
         </div>

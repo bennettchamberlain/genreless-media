@@ -135,12 +135,15 @@ export const allProjectsQuery = defineQuery(`
       youtubeUrl
     },
     content[] {
-      type,
-      text,
-      "image": image.asset->url,
-      "videoFile": videoFile.asset->url,
-      vimeoUrl,
-      youtubeUrl
+      aspectRatio,
+      items[] {
+        type,
+        text,
+        "image": image.asset->url,
+        "videoFile": videoFile.asset->url,
+        vimeoUrl,
+        youtubeUrl
+      }
     },
     "date": date
   }
@@ -167,12 +170,15 @@ export const projectQuery = defineQuery(`
       youtubeUrl
     },
     content[] {
-      type,
-      text,
-      "image": image.asset->url,
-      "videoFile": videoFile.asset->url,
-      vimeoUrl,
-      youtubeUrl
+      aspectRatio,
+      items[] {
+        type,
+        text,
+        "image": image.asset->url,
+        "videoFile": videoFile.asset->url,
+        vimeoUrl,
+        youtubeUrl
+      }
     },
     "date": date
   }

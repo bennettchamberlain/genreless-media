@@ -24,12 +24,15 @@ interface Project {
     youtubeUrl?: string
   }
   content: Array<{
-    type: 'text' | 'image' | 'videoUpload' | 'vimeo' | 'youtube'
-    text?: string
-    image?: string
-    videoFile?: string
-    vimeoUrl?: string
-    youtubeUrl?: string
+    aspectRatio: string
+    items: Array<{
+      type: 'text' | 'image' | 'videoUpload' | 'vimeo' | 'youtube'
+      text?: string
+      image?: string
+      videoFile?: string
+      vimeoUrl?: string
+      youtubeUrl?: string
+    }>
   }>
   date: string
 }

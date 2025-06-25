@@ -20,19 +20,19 @@ function EnvelopeIcon() {
 const InfoHeader = () => {
   return (
     <div className="relative">
-      <div className="fixed top-2 left-4 h-8 w-[200px] z-50">
+      <div className="fixed top-2 left-4 h-8 w-[200px] z-50" style={{ mixBlendMode: 'difference' }}>
         <Image
           src="/images/g.M_logo.png"
           alt="g.M Logo"
           fill
-          className="object-contain select-none brightness-0 object-left"
+          className="object-contain select-none object-left overflow-hidden"
           priority
           draggable={false}
         />
       </div>
       <header 
-        className={`fixed z-40 h-10 inset-0 flex items-center transition-all duration-500
-          ${true ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-8'}
+        className={`fixed z-40 h-10 inset-0 flex items-center transition-all duration-500 mix-blend-difference
+          ${true ? 'opacity-100 translate-y-0' : 'opacity-100 -translate-y-8'}
         `}
        
       >
@@ -44,14 +44,21 @@ const InfoHeader = () => {
 
             <div className="flex flex-col pt-2 lg:basis-1/6 px-2 items-end">
               <div className="flex-1" />
-              <Link href="/archive" className="text-s hover:underline" >
+              <Link href="/archive" className="text-s hover:text-[#fe2e2e] hover:invert hover:underline text-white " >
                 Archive
               </Link>
             </div>
 
             <div className="flex flex-col pt-2 lg:basis-1/6 px-2 items-end">
               <div className="flex-1" />
-              <Link href="/info" className="text-s hover:underline" >
+              <Link href="/shop" className="text-s hover:text-[#fe2e2e] hover:invert hover:underline text-white " >
+                Shop
+              </Link>
+            </div>
+
+            <div className="flex flex-col pt-2 lg:basis-1/6 px-2 items-end">
+              <div className="flex-1" />
+              <Link href="/info" className="text-s hover:text-[#fe2e2e] hover:invert hover:underline text-white" >
                 Info
               </Link>
             </div>
@@ -68,21 +75,12 @@ export default function InfoPage() {
       <InfoHeader />
       <div style={{ position: "relative", paddingTop: "50px" }}>
         <main className="max-w-6xl mx-auto px-4 pt-8 pb-32">
-          <div className="text-[2.2rem] md:text-[2.8rem] leading-snug font-sans font-normal text-[#091ebc]" style={{ wordBreak: 'break-word' }}>
-            ✺ genreless Media is a production company founded by <a href="https://www.instagram.com/jackierad/" target="_blank" rel="noopener noreferrer" className="underline hover:opacity-80">Jackie Radinsky</a> in Los Angeles, with roots worldwide. It was conceived out of a reverence for humanity, art, and nature.<br /><br />
-            💡 We create music videos, commercials / campaigns, documentaries, <Link href="/archive" className="underline hover:opacity-80">zines</Link>, + anything in between - from the ground up. We&apos;re firm believers in the power of <span className="italic">sincere</span> art to connect community & spark a brighter future.<br /><br />
-            🪡 Our team handles every aspect of production with precise care tailored to your project&apos;s needs. Reach out today to discuss how we can bring your vision to life ↓<br /><br />
-            <EnvelopeIcon />
-            <a href="mailto:studio@genreless.media" className="underline hover:opacity-80">studio@genreless.media</a>
+          <div className="text-[2rem] md:text-[2.5rem] leading-snug font-[Helvetica] font-normal text-[#091ebc]" style={{ wordBreak: 'break-word', transform: 'scaleY(1.14)', transformOrigin: 'left top' }}>
+            genreless media is a production company founded by <a href="https://www.instagram.com/jackierad/" target="_blank" rel="noopener noreferrer" className="underline hover:text-[#fe2e2e] transition-colors duration-200">Jackie Radinsky</a> in Los Angeles, with roots worldwide. It was conceived out of a reverence for humanity, ephemera, & nature.<br /><br />
+            We create commercials, music videos, docs, physical products, + everything in between. We&apos;re firm believers in the power of <span className="italic">sincere</span> art to illuminate a brighter future and to tether community.<br /><br />
+            You can reach us via <a href="mailto:studio@genreless.media" className="underline hover:text-[#fe2e2e] transition-colors duration-200">email</a>, and find us on <a href="https://www.are.na/genreless-media" className="underline hover:text-[#fe2e2e] transition-colors duration-200" target="_blank" rel="noopener noreferrer">are.na</a>, <a href="https://substack.com/@genrelessmedia" className="underline hover:text-[#fe2e2e] transition-colors duration-200" target="_blank" rel="noopener noreferrer">substack</a>, and <a href="https://www.youtube.com/@genrelessmedia" className="underline hover:text-[#fe2e2e] transition-colors duration-200" target="_blank" rel="noopener noreferrer">youtube</a>.
           </div>
         </main>
-        <div className="absolute right-6 bottom-6 text-[#091ebc] text-base md:text-lg font-sans">
-          *also on{' '}
-          <a href="https://www.are.na/genreless-media" className="underline hover:opacity-80" target="_blank" rel="noopener noreferrer">are.na</a>,{' '}
-          <a href="https://www.instagram.com/genreless.media/" className="underline hover:opacity-80" target="_blank" rel="noopener noreferrer">instagram</a>,{' '}
-          <a href="https://open.spotify.com/user/31w3k2w3k2w3k2w3k2w3k2w3k2w3k2w3" className="underline hover:opacity-80" target="_blank" rel="noopener noreferrer">spotify</a> &{' '}
-          <a href="https://www.youtube.com/@genrelessmedia" className="underline hover:opacity-80" target="_blank" rel="noopener noreferrer">youtube</a>
-        </div>
         <Footer backgroundColor="#1a21a5" textColor="white" />
       </div>
     </div>

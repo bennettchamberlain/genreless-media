@@ -50,7 +50,7 @@ export default function ProjectsGrid({ initialProjects }: ProjectsGridProps) {
   return (
     <div className="bg-[#dadad6] min-h-screen">
       {/* Filters Section */}
-      <div className="max-w-[1800px] mx-auto pl-14 pt-0">
+      <div className="max-w-[1800px] mx-auto pl-4 md:pl-14 pt-4 md:pt-10 pb-6">
         
           <ul className="flex flex-col space-y-1">
             <li>
@@ -98,7 +98,7 @@ export default function ProjectsGrid({ initialProjects }: ProjectsGridProps) {
       </div>
 
       {/* Projects Grid Section */}
-      <div className="max-w-[1800px] mx-auto pl-14 pr-14 pt-2">
+      <div className="max-w-[1800px] mx-auto pl-4 pr-4 md:pl-14 md:pr-14 pt-2">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12">
           {filteredProjects.map((project) => (
             <Link
