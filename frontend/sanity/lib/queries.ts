@@ -195,3 +195,12 @@ export const cartProductsQuery = defineQuery(`
     ${productFields}
   }
 `);
+
+export const allLogosQuery = defineQuery(`
+  *[_type == "logo"] | order(title asc) {
+    _id,
+    title,
+    "imageUrl": image.asset->url,
+    "alt": image.alt
+  }
+`);

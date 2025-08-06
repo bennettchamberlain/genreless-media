@@ -47,18 +47,21 @@ export default function ArchiveTable({ projects }: { projects: Project[] }) {
           <thead>
             <tr>
               <th className="text-left py-10 px-4 font-[Helvetica] font-bold" style={{ color: '#ffffff' }}>Project</th>
-              <th className="text-left py-10 px-4 font-[Helvetica] font-bold" style={{ color: '#ffffff' }}>Client</th>
+              <th className="hidden md:table-cell text-left py-10 px-4 font-[Helvetica] font-bold" style={{ color: '#ffffff' }}>Client</th>
               <th className="text-left py-10 px-4 font-[Helvetica] font-bold" style={{ color: '#ffffff' }}>Year</th>
               <th className="text-left py-10 px-4 font-[Helvetica] font-bold" style={{ color: '#ffffff' }}>Genre</th>
-              <th className="text-left py-10 px-4 font-[Helvetica] font-bold" style={{ color: '#ffffff' }}>Our role</th>
+              <th className="hidden md:table-cell text-left py-10 px-4 font-[Helvetica] font-bold" style={{ color: '#ffffff' }}>Our role</th>
             </tr>
           </thead>
           <tbody>
             {projects.map((project, index) => (
               <tr
                 key={index}
-                className="group cursor-pointer transition-colors" 
-                style={{ transition: 'color 0.0s' }}
+                className="group cursor-pointer transition-colors"
+                style={{ 
+                  transition: 'color 0.0s',
+                  textDecoration: hoveredIdx === index ? 'underline 1px solid white' : 'none'
+                }}
                 onMouseEnter={() => setHoveredIdx(index)}
                 onMouseLeave={() => setHoveredIdx(null)}
                 onClick={() => handleRowClick(project.slug)}
@@ -66,10 +69,10 @@ export default function ArchiveTable({ projects }: { projects: Project[] }) {
                 <td className="py-2 px-4 font-[Helvetica]" style={{ color: '#ffffff' }}>
                   {project.title}
                 </td>
-                <td className="py-2 px-4 font-[Helvetica]" style={{ color: '#ffffff' }}>{project.client}</td>
+                <td className="hidden md:table-cell py-2 px-4 font-[Helvetica]" style={{ color: '#ffffff' }}>{project.client}</td>
                 <td className="py-2 px-4 font-[Helvetica]" style={{ color: '#ffffff' }}>{project.date ? new Date(project.date).getFullYear() : '-'}</td>
                 <td className="py-2 px-4 font-[Helvetica]" style={{ color: '#ffffff' }}>{project.format}</td>
-                <td className="py-2 px-4 font-[Helvetica]" style={{ color: '#ffffff' }}>{project.ourRole}</td>
+                <td className="hidden md:table-cell py-2 px-4 font-[Helvetica]" style={{ color: '#ffffff' }}>{project.ourRole}</td>
               </tr>
             ))}
           </tbody>

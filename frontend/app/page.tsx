@@ -7,7 +7,7 @@ import GetStartedCode from "@/app/components/GetStartedCode";
 import SideBySideIcons from "@/app/components/SideBySideIcons";
 import Hero from "@/app/components/Hero";
 import Manifesto from "@/app/components/manifesto";
-import { settingsQuery } from "@/sanity/lib/queries";
+import { settingsQuery, allLogosQuery } from "@/sanity/lib/queries";
 import { sanityFetch } from "@/sanity/lib/live";
 import HomePosts from "./components/home_posts";
 import ProjectsGridContainer from "./components/projects_grid_container";
@@ -18,6 +18,10 @@ import Footer from "./components/Footer";
 export default async function Page() {
   // const { data: settings } = await sanityFetch({
   //   query: settingsQuery,
+  // });
+
+  // const { data: logos } = await sanityFetch({
+  //   query: allLogosQuery,
   // });
 
   return (

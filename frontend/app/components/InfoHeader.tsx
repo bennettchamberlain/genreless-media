@@ -1,18 +1,18 @@
-'use client';
+"use client";
 
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 
-export default function ArchiveHeader() {
+const InfoHeader = () => {
   const pathname = usePathname();
 
   return (
     <header 
-      className="fixed z-50 h-16 inset-0 flex items-center transition-all duration-500 font-['Helvetica'] bg-[#0d0d0d]"
+      className="fixed z-50 h-16 inset-0 flex items-center transition-all duration-500 font-['Helvetica'] bg-[#dadad6]"
     >
       {/* Logo in top-left corner */}
-      <div className="fixed top-5 left-4 h-8 w-16 md:w-50 z-[110]">
+      <div className="fixed top-5 md:top-5 left-4 h-8 w-16 md:w-50 z-[60]">
         <Link href="/">
           {/* Mobile logo */}
           <Image
@@ -20,20 +20,22 @@ export default function ArchiveHeader() {
             alt="g.M Logo"
             fill
             sizes="(max-width: 768px) 64px, 200px"
-            className="object-contain select-none brightness-0 invert object-left md:hidden"
+            className="object-contain select-none object-left overflow-hidden md:hidden"
             priority
             draggable={false}
           />
           {/* Desktop logo */}
-          <Image
-            src="/images/g.M_logo.png"
-            alt="g.M Logo"
-            fill
-            sizes="(max-width: 768px) 64px, 200px"
-            className="object-contain select-none brightness-0 invert object-left hidden md:block"
-            priority
-            draggable={false}
-          />
+          <div className="hidden md:block" >
+            <Image
+              src="/images/g.M_logo.png"
+              alt="g.M Logo"
+              fill
+              sizes="(max-width: 768px) 64px, 200px"
+              className="object-contain select-none object-left overflow-hidden brightness-100 invert"
+              priority
+              draggable={false}
+            />
+          </div>
         </Link>
       </div>
 
@@ -51,9 +53,9 @@ export default function ArchiveHeader() {
             <div className="flex-1" />
             <Link 
               href="/archive" 
-              className={`text-s hover:underline text-right text-white ${
+              className={`text-s hover:text-[#fe2e2e] hover:underline text-black text-right ${
                 pathname === '/archive' ? 'underline' : ''
-              }`} 
+              }`}
             >
               Archive
             </Link>
@@ -63,9 +65,9 @@ export default function ArchiveHeader() {
             <div className="flex-1" />
             <Link 
               href="/products" 
-              className={`text-s hover:underline text-right text-white ${
+              className={`text-s hover:text-[#fe2e2e] hover:underline text-black text-right ${
                 pathname === '/products' ? 'underline' : ''
-              }`} 
+              }`}
             >
               Shop
             </Link>
@@ -75,9 +77,9 @@ export default function ArchiveHeader() {
             <div className="flex-1" />
             <Link 
               href="/info" 
-              className={`text-s hover:underline text-right text-white ${
+              className={`text-s hover:text-[#fe2e2e] hover:underline text-black text-right ${
                 pathname === '/info' ? 'underline' : ''
-              }`} 
+              }`}
             >
               Info
             </Link>
@@ -87,3 +89,5 @@ export default function ArchiveHeader() {
     </header>
   );
 }
+
+export default InfoHeader; 

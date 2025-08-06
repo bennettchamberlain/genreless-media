@@ -16,7 +16,7 @@ export default function Footer({
         {/* Column 1 */}
         <div className="flex flex-col lg:basis-4/6 lg:max-w-[66%] lg:min-h-[140px] mb-4 lg:mb-0 px-4 lg:px-2">
           <div className="flex flex-col h-full py-1">
-            <span className={`font-[Helvetica] text-sm mb-3 lg:mb-3 mt-2 ml-2 lg:ml-2 text-${textColor} italic text-center lg:text-left`}>
+            <span className={`font-[Helvetica] text-sm mb-3 lg:mb-3 mt-2 ml-0 lg:ml-2 text-${textColor} italic text-left`}>
               pare down to the essence, <br></br>but don&apos;t remove the poetry...
             </span>
             <div className="flex-1 hidden lg:block" />
@@ -29,7 +29,7 @@ export default function Footer({
           </div>
         </div>
         {/* Column 2 */}
-        <div className="flex flex-col lg:basis-1/6 lg:border-l border-white/30 px-4 lg:px-4 mb-4 lg:mb-0 text-center lg:text-left">
+        <div className="flex flex-col lg:basis-1/6 lg:border-l border-white/30 px-4 lg:px-4 mb-4 lg:mb-0 text-left">
           <div className="flex flex-col h-full py-1">
             <div className={`font-[Helvetica] text-sm mb-2 lg:mb-3 mt-2 text-${textColor}`}>Los Angeles, CA, USA</div>
             <div className="flex-1 hidden lg:block" />
@@ -37,7 +37,7 @@ export default function Footer({
           </div>
         </div>
         {/* Column 3 */}
-        <div className="flex flex-col lg:basis-1/6 lg:border-l border-white/30 px-4 lg:px-4 text-center lg:text-right">
+        <div className="flex flex-col lg:basis-1/6 lg:border-l border-white/30 px-4 lg:px-4 text-left lg:text-right">
           <div className="flex flex-col h-full py-1">
             <div className={`font-sans text-xs mb-2 lg:mb-3 mt-2 text-${textColor}`}>
               <a href="https://www.instagram.com/genreless.media/" 
@@ -59,8 +59,8 @@ export default function Footer({
       </div>
       
       {/* Mobile Logo - shown at bottom on mobile only */}
-      <div className="flex lg:hidden justify-center items-center">
-        <div className="relative w-64 h-20">
+      <div className="flex lg:hidden justify-start items-center px-4">
+        <div className="relative w-32 h-16">
           <Image src="/images/g.M_logo.png" alt="g.M logo" fill className="object-contain" />
         </div>
       </div>
