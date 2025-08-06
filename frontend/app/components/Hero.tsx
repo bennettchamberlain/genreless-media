@@ -5,7 +5,7 @@ export default function Hero() {
   return (
     <div className="w-full min-h-[80vh] md:min-h-[75vh] relative bg-[#dadad6] pt-16">
       {/* Video container - responsive positioning with max width constraint */}
-      <div className="w-full h-full min-h-[calc(80vh-4rem)] md:min-h-[calc(75vh-4rem)] px-0 md:px-8 py-12 max-w-7xl mx-auto">
+      <div className="w-full h-full min-h-[calc(80vh-4rem)] md:min-h-[calc(75vh-4rem)] px-0 md:px-8 pt-12 pb-12 md:pb-38 max-w-7xl mx-auto">
         {/* Mobile layout - stacked */}
         <div className="md:hidden flex flex-col items-center space-y-8">
           {/* Video on mobile */}
@@ -20,8 +20,8 @@ export default function Hero() {
           </div>
           
           {/* Text below video on mobile */}
-          <div className="w-full max-w-sm px-4">
-            <div className="text-[#000000] text-lg leading-relaxed space-y-4 font-['Helvetica']" style={{ transform: 'scaleY(1.2)', transformOrigin: 'left top' }}>
+          <div className="w-full max-w-full px-4">
+            <div className="text-[#000000] text-xl max-w-lg leading-relaxed space-y-4 font-['Helvetica'] text-left" style={{ transform: 'scaleY(1.2)', transformOrigin: 'left top' }}>
               <p className="mb-4">
                 Our specialties include creative direction, holistic release rollouts, photography, and commercial productions.
               </p>
