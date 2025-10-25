@@ -5,10 +5,10 @@ import { useRouter } from 'next/navigation';
 
 interface Project {
   title: string;
-  ourRole: string;
-  client: string;
+  ourRole: string | null;
+  client: string | null;
   date: string;
-  format: string;
+  format: string | null;
   coverHover?: string;
   slug: string;
 }
@@ -69,10 +69,10 @@ export default function ArchiveTable({ projects }: { projects: Project[] }) {
                 <td className="py-2 px-4 font-[Helvetica]" style={{ color: '#ffffff' }}>
                   {project.title}
                 </td>
-                <td className="hidden md:table-cell py-2 px-4 font-[Helvetica]" style={{ color: '#ffffff' }}>{project.client}</td>
+                <td className="hidden md:table-cell py-2 px-4 font-[Helvetica]" style={{ color: '#ffffff' }}>{project.client || '-'}</td>
                 <td className="py-2 px-4 font-[Helvetica]" style={{ color: '#ffffff' }}>{project.date ? new Date(project.date).getFullYear() : '-'}</td>
-                <td className="py-2 px-4 font-[Helvetica]" style={{ color: '#ffffff' }}>{project.format}</td>
-                <td className="hidden md:table-cell py-2 px-4 font-[Helvetica]" style={{ color: '#ffffff' }}>{project.ourRole}</td>
+                <td className="py-2 px-4 font-[Helvetica]" style={{ color: '#ffffff' }}>{project.format || '-'}</td>
+                <td className="hidden md:table-cell py-2 px-4 font-[Helvetica]" style={{ color: '#ffffff' }}>{project.ourRole || '-'}</td>
               </tr>
             ))}
           </tbody>

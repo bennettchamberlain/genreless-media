@@ -2,6 +2,10 @@ import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { stripeSecretKey } from '../../../env';
 
+if (!stripeSecretKey) {
+  throw new Error('STRIPE_SECRET_KEY environment variable is not set');
+}
+
 const stripe = new Stripe(stripeSecretKey, {
   apiVersion: '2025-07-30.basil',
 });
