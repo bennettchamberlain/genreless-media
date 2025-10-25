@@ -9,7 +9,7 @@ interface Project {
   client: string | null;
   date: string;
   format: string | null;
-  coverHover?: string;
+  coverHover?: string | null;
   slug: string;
 }
 

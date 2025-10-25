@@ -6,8 +6,8 @@ import Image from 'next/image';
 interface Logo {
   _id: string;
   title: string;
-  imageUrl: string;
-  alt?: string;
+  imageUrl: string | null;
+  alt?: string | null;
 }
 
 interface LogoMarqueeProps {
@@ -56,14 +56,14 @@ export default function LogoMarquee({ logos }: LogoMarqueeProps) {
             {/* Duplicate logos for seamless marquee */}
             {needsMarquee && (
               <>
-                {logos.map((logo) => (
+                {logos.filter(logo => logo.imageUrl).map((logo) => (
                   <div
                     key={`${logo._id}-duplicate`}
                     className="flex-shrink-0 flex items-center justify-center"
                     style={{ minWidth: '120px' }}
                   >
                     <Image
-                      src={logo.imageUrl}
+                      src={logo.imageUrl!}
                       alt={logo.alt || logo.title}
                       width={120}
                       height={60}
@@ -75,14 +75,14 @@ export default function LogoMarquee({ logos }: LogoMarqueeProps) {
             )}
             
             {/* Original logos */}
-            {logos.map((logo) => (
+            {logos.filter(logo => logo.imageUrl).map((logo) => (
               <div
                 key={logo._id}
                 className="flex-shrink-0 flex items-center justify-center"
                 style={{ minWidth: '120px' }}
               >
                 <Image
-                  src={logo.imageUrl}
+                  src={logo.imageUrl!}
                   alt={logo.alt || logo.title}
                   width={120}
                   height={60}

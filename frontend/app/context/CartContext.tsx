@@ -6,10 +6,10 @@ export interface CartItem {
   _id: string;
   title: string;
   price: number;
-  salePrice?: number;
+  salePrice?: number | null;
   slug: string;
   images: Array<{
-    url: string;
+    url: string | null;
     alt: string;
   }>;
   quantity: number;

@@ -9,15 +9,15 @@ interface ProductDetailProps {
     _id: string;
     title: string;
     price: number;
-    salePrice?: number;
+    salePrice?: number | null;
     slug: string;
     images: Array<{
-      url: string;
+      url: string | null;
       alt: string;
     }>;
     description: string;
     inStock: boolean;
-    category?: string;
+    category?: string | null;
   };
 }
 
@@ -57,7 +57,7 @@ export default function ProductDetail({ product }: ProductDetailProps) {
         <div className="aspect-square relative overflow-hidden rounded-lg">
           {product.images && product.images[selectedImageIndex] && product.images[selectedImageIndex].url && (
             <Image
-              src={product.images[selectedImageIndex].url}
+              src={product.images[selectedImageIndex].url!}
               alt={product.images[selectedImageIndex].alt || product.title}
               fill
               className="object-cover"
@@ -80,7 +80,7 @@ export default function ProductDetail({ product }: ProductDetailProps) {
               >
                 {image.url && (
                   <Image
-                    src={image.url}
+                    src={image.url!}
                     alt={image.alt || product.title}
                     fill
                     className="object-cover"

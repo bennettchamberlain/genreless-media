@@ -7,30 +7,30 @@ import { useRouter } from 'next/navigation'
 interface Project {
   _id: string
   title: string
-  description: string
+  description: string | null
   slug: string
-  client?: string
-  format?: string
+  client?: string | null
+  format?: string | null
   projectTypes?: string[]
-  isSelected: boolean
-  coverThumb?: string
-  coverHover?: string
+  isSelected: boolean | null
+  coverThumb?: string | null
+  coverHover?: string | null
   mainGalleryMedia: {
     type: 'image' | 'videoUpload' | 'vimeo' | 'youtube'
-    image?: string
-    videoFile?: string
-    vimeoUrl?: string
-    youtubeUrl?: string
+    image?: string | null
+    videoFile?: string | null
+    vimeoUrl?: string | null
+    youtubeUrl?: string | null
   }
   content: Array<{
     aspectRatio: string
     items: Array<{
       type: 'text' | 'image' | 'videoUpload' | 'vimeo' | 'youtube'
-      text?: string
-      image?: string
-      videoFile?: string
-      vimeoUrl?: string
-      youtubeUrl?: string
+      text?: string | null
+      image?: string | null
+      videoFile?: string | null
+      vimeoUrl?: string | null
+      youtubeUrl?: string | null
     }>
   }>
   date: string

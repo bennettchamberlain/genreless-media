@@ -9,18 +9,10 @@ type Project = {
   _id: string;
   title: string;
   slug: string;
-  isSelected: boolean;
+  isSelected: boolean | null;
   projectTypes: string[];
-  coverThumb: {
-    asset: {
-      _ref: string;
-    };
-  };
-  coverHover: {
-    asset: {
-      _ref: string;
-    };
-  };
+  coverThumb?: string | null;
+  coverHover?: string | null;
 };
 
 type ProjectsGridProps = {
@@ -40,7 +32,7 @@ export default function ProjectsGrid({ initialProjects }: ProjectsGridProps) {
   };
 
   const filteredProjects = selectedCategory === 'selected'
-    ? projects.filter(project => project.isSelected)
+    ? projects.filter(project => project.isSelected === true)
     : projects.filter(project => project.projectTypes.includes(selectedCategory));
 
   if (!projects || projects.length === 0) {
@@ -109,7 +101,7 @@ export default function ProjectsGrid({ initialProjects }: ProjectsGridProps) {
                 <div className="relative w-full aspect-video bg-neutral-900">
                   {project.coverThumb && (
                     <Image
-                      src={project.coverThumb.toString()}
+                      src={urlForImage(project.coverThumb)?.url() || ''}
                       alt={project.title}
                       fill
                       className="object-cover w-full h-full opacity-0 transition-opacity duration-300"
@@ -120,7 +112,7 @@ export default function ProjectsGrid({ initialProjects }: ProjectsGridProps) {
                       ref={(el) => {
                         videoRefs.current[project._id] = el;
                       }}
-                      src={project.coverHover.toString()}
+                      src={urlForImage(project.coverHover)?.url() || ''}
                       className="absolute inset-0 w-full h-full object-cover opacity-100 transition-opacity duration-300"
                       autoPlay
                       muted
@@ -203,7 +195,7 @@ export default function ProjectsGrid({ initialProjects }: ProjectsGridProps) {
                 <div className="relative w-full aspect-video bg-neutral-900">
                   {project.coverThumb && (
                     <Image
-                      src={project.coverThumb.toString()}
+                      src={urlForImage(project.coverThumb)?.url() || ''}
                       alt={project.title}
                       fill
                       className="object-cover w-full h-full group-hover:opacity-0 transition-opacity duration-300"
@@ -214,7 +206,7 @@ export default function ProjectsGrid({ initialProjects }: ProjectsGridProps) {
                       ref={(el) => {
                         videoRefs.current[project._id] = el;
                       }}
-                      src={project.coverHover.toString()}
+                      src={urlForImage(project.coverHover)?.url() || ''}
                       className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                       autoPlay
                       muted

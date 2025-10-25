@@ -38,6 +38,9 @@ export default function CheckoutPage() {
         const { sessionId } = await response.json();
 
         // Load Stripe and redirect to checkout
+        if (!stripePublishableKey) {
+          throw new Error('Stripe publishable key is not configured');
+        }
         const stripe = await loadStripe(stripePublishableKey);
         if (!stripe) {
           throw new Error('Failed to load Stripe');
