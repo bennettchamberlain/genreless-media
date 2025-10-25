@@ -12,11 +12,66 @@ export default function SplashScreen({ onFinish }: { onFinish: () => void }) {
   const [isTyping, setIsTyping] = useState(true);
   const [showCursor, setShowCursor] = useState(true);
   const [isDotsComplete, setIsDotsComplete] = useState(false);
+  const [isSkipped, setIsSkipped] = useState(false);
   const indexRef = useRef(0);
   const dotRef = useRef(0);
   const cursorIntervalRef = useRef<NodeJS.Timeout>();
+  const animationTimeoutRef = useRef<NodeJS.Timeout>();
+
+  const startDotsAnimation = () => {
+    const dotSpeed = 630; // ms per dot (10% faster)
+    let currentDot = 0;
+    
+    const animateDots = () => {
+      if (currentDot < dots.length) {
+        setDisplayed(manifestoText + dots.slice(0, currentDot + 1));
+        currentDot++;
+        animationTimeoutRef.current = setTimeout(animateDots, dotSpeed);
+      } else {
+        setIsTyping(false);
+        setIsDotsComplete(true);
+        // Button is already visible, no need to show it again
+      }
+    };
+    
+    animateDots();
+  };
+
+  const handleSkip = () => {
+    if (!isSkipped) {
+      setIsSkipped(true);
+      
+      // Clear ALL existing timeouts and intervals first
+      if (animationTimeoutRef.current) {
+        clearTimeout(animationTimeoutRef.current);
+      }
+      if (cursorIntervalRef.current) {
+        clearInterval(cursorIntervalRef.current);
+      }
+      
+      // Set the full text immediately
+      setDisplayed(manifestoText);
+      setIsTyping(false);
+      setShowCursor(true); // Keep cursor blinking
+      setIsDotsComplete(false); // Start dots animation
+      setShowButton(true); // Show button immediately
+      
+      // Restart cursor blinking
+      cursorIntervalRef.current = setInterval(() => {
+        setShowCursor(prev => !prev);
+      }, 530);
+      
+      // Start the dots animation with a small delay to ensure state is set
+      setTimeout(() => {
+        startDotsAnimation();
+      }, 50);
+    }
+  };
+
 
   useEffect(() => {
+    if (isSkipped) return; // Don't start animation if already skipped
+    
     indexRef.current = 0;
     dotRef.current = 0;
     setDisplayed('');
@@ -32,7 +87,7 @@ export default function SplashScreen({ onFinish }: { onFinish: () => void }) {
 
     // Variable typing speeds
     const getRandomTypeSpeed = () => {
-      const baseSpeed = Math.floor(Math.random() * (60 - 30) + 30); // Random between 30-60ms
+      const baseSpeed = Math.floor(Math.random() * (54 - 27) + 27); // Random between 27-54ms (10% faster)
       
       // Get current character and its position
       const currentChar = manifestoText[indexRef.current];
@@ -41,33 +96,33 @@ export default function SplashScreen({ onFinish }: { onFinish: () => void }) {
       
       // Add natural pauses for punctuation
       if (currentChar === '.' || currentChar === ',' || currentChar === ' ') {
-        return baseSpeed + 100; // Longer pause for punctuation
+        return baseSpeed + 90; // Longer pause for punctuation (10% faster)
       }
       
       // Add slight pause at the start
       if (isFirstChar) {
-        return baseSpeed + 100;
+        return baseSpeed + 90; // 10% faster
       }
       
       // Add longer pause at the end
       if (isLastChar) {
-        return baseSpeed + 150;
+        return baseSpeed + 135; // 10% faster
       }
       
       // Randomly add occasional longer pauses for natural rhythm
       if (Math.random() < 0.1) { // 10% chance
-        return baseSpeed + 100;
+        return baseSpeed + 90; // 10% faster
       }
       
       return baseSpeed;
     };
-    const dotSpeed = 700; // ms per dot
+    const dotSpeed = 630; // ms per dot (10% faster)
 
     function typeText() {
       if (indexRef.current < manifestoText.length) {
         setDisplayed(manifestoText.slice(0, indexRef.current + 1));
         indexRef.current++;
-        setTimeout(typeText, getRandomTypeSpeed());
+        animationTimeoutRef.current = setTimeout(typeText, getRandomTypeSpeed());
       } else {
         typeDots();
       }
@@ -77,11 +132,11 @@ export default function SplashScreen({ onFinish }: { onFinish: () => void }) {
       if (dotRef.current < dots.length) {
         setDisplayed(manifestoText + dots.slice(0, dotRef.current + 1));
         dotRef.current++;
-        setTimeout(typeDots, dotSpeed);
+        animationTimeoutRef.current = setTimeout(typeDots, dotSpeed);
       } else {
         setIsTyping(false);
         setIsDotsComplete(true);
-        setTimeout(() => {
+        animationTimeoutRef.current = setTimeout(() => {
           setShowButton(true);
         }, 400);
       }
@@ -93,9 +148,12 @@ export default function SplashScreen({ onFinish }: { onFinish: () => void }) {
       if (cursorIntervalRef.current) {
         clearInterval(cursorIntervalRef.current);
       }
+      if (animationTimeoutRef.current) {
+        clearTimeout(animationTimeoutRef.current);
+      }
     };
     // eslint-disable-next-line
-  }, []);
+  }, [isSkipped]);
 
   function renderText() {
     const currentIndex = indexRef.current;
@@ -142,7 +200,11 @@ export default function SplashScreen({ onFinish }: { onFinish: () => void }) {
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex flex-col items-center justify-start bg-[#dadad6] pt-16 sm:pt-32" style={{ minHeight: '100vh' }}>
+    <div 
+      className="fixed inset-0 z-50 flex flex-col items-center justify-start bg-[#dadad6] pt-16 sm:pt-32 cursor-pointer" 
+      style={{ minHeight: '100vh' }}
+      onClick={handleSkip}
+    >
       <div className="flex flex-row items-start text-left px-4 sm:px-0 ml-[0rem] sm:ml-[-5rem] md:ml-[-15rem] lg:ml-[-15rem] xl:ml-[-30rem]">
         <span className="text-2xl sm:text-4xl md:text-4xl font-medium text-[#1a21a5] leading-tight select-none" style={{minWidth: '2ch', width: '2ch', textAlign: 'right', fontFamily: 'Helvetica', fontWeight: 'normal', display: 'inline-block', transform: 'scaleY(1.14)', transformOrigin: 'left top'}}>&gt;</span>
         <span className="text-2xl sm:text-4xl md:text-4xl font-medium text-[#1a21a5] leading-tight whitespace-pre-line w-[20rem] sm:w-[30rem] md:w-[40rem] ml-2 block" style={{minHeight: '6rem', fontFamily: 'Helvetica', fontWeight: 'normal', display: 'inline-block', transform: 'scaleY(1.14)', transformOrigin: 'left top'}}>
