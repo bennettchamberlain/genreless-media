@@ -12,9 +12,10 @@ interface Logo {
 
 interface LogoMarqueeProps {
   logos: Logo[];
+  backgroundColor?: string;
 }
 
-export default function LogoMarquee({ logos }: LogoMarqueeProps) {
+export default function LogoMarquee({ logos, backgroundColor = "#0d0d0d" }: LogoMarqueeProps) {
   const [needsMarquee, setNeedsMarquee] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -39,7 +40,7 @@ export default function LogoMarquee({ logos }: LogoMarqueeProps) {
   }
 
   return (
-    <div className="w-full bg-[#0d0d0d] pt-4 pb-8 md:pt-0 md:pb-12">
+    <div className="w-full pt-4 pb-8 md:pt-0 md:pb-12" style={{ backgroundColor }}>
       <div className="max-w-7xl mx-auto px-4">
         <div 
           ref={containerRef}
