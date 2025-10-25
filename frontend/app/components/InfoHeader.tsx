@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+import CartIndicator from "./CartIndicator";
 
 const InfoHeader = () => {
   const pathname = usePathname();
@@ -65,11 +66,12 @@ const InfoHeader = () => {
             <div className="flex-1" />
             <Link 
               href="/products" 
-              className={`text-s hover:text-[#fe2e2e] hover:underline text-black text-right ${
+              className={`text-s hover:text-[#fe2e2e] hover:underline text-black text-right relative ${
                 pathname === '/products' ? 'underline' : ''
               }`}
             >
               Shop
+              <CartIndicator />
             </Link>
           </div>
 

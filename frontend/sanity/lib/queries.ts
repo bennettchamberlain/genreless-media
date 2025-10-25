@@ -196,6 +196,18 @@ export const cartProductsQuery = defineQuery(`
   }
 `);
 
+export const allProductsQuery = defineQuery(`
+  *[_type == "product" && inStock == true] | order(title asc) {
+    ${productFields}
+  }
+`);
+
+export const productBySlugQuery = defineQuery(`
+  *[_type == "product" && slug.current == $slug][0] {
+    ${productFields}
+  }
+`);
+
 export const allLogosQuery = defineQuery(`
   *[_type == "logo"] | order(title asc) {
     _id,

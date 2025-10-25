@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+import CartIndicator from "../../components/CartIndicator";
 
 export default function ArchiveHeader() {
   const pathname = usePathname();
@@ -37,7 +38,7 @@ export default function ArchiveHeader() {
         </Link>
       </div>
 
-      <div className="w-full pl-4 pr-4">
+      <div className="w-full pl-4 pr-4 relative z-[120]">
         <div className="flex items-center justify-between w-full">
           <div className="flex flex-col lg:basis-3/6 lg:max-w-[50%] ">
             {/* Empty for spacing */}
@@ -51,7 +52,7 @@ export default function ArchiveHeader() {
             <div className="flex-1" />
             <Link 
               href="/archive" 
-              className={`text-s hover:underline text-right text-white ${
+              className={`text-s hover:underline text-right text-white relative z-[130] ${
                 pathname === '/archive' ? 'underline' : ''
               }`} 
             >
@@ -63,11 +64,12 @@ export default function ArchiveHeader() {
             <div className="flex-1" />
             <Link 
               href="/products" 
-              className={`text-s hover:underline text-right text-white ${
+              className={`text-s hover:underline text-right text-white relative z-[130] ${
                 pathname === '/products' ? 'underline' : ''
               }`} 
             >
               Shop
+              <CartIndicator />
             </Link>
           </div>
 
@@ -75,7 +77,7 @@ export default function ArchiveHeader() {
             <div className="flex-1" />
             <Link 
               href="/info" 
-              className={`text-s hover:underline text-right text-white ${
+              className={`text-s hover:underline text-right text-white relative z-[130] ${
                 pathname === '/info' ? 'underline' : ''
               }`} 
             >

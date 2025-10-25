@@ -111,6 +111,157 @@ export type BlockContent = Array<{
   _key: string;
 }>;
 
+export type Logo = {
+  _id: string;
+  _type: "logo";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title: string;
+  image: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+};
+
+export type Product = {
+  _id: string;
+  _type: "product";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title: string;
+  id: string;
+  slug: Slug;
+  price: number;
+  description: string;
+  images: Array<{
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt: string;
+    _type: "image";
+    _key: string;
+  }>;
+  category?: string;
+  salePrice?: number;
+  inStock: boolean;
+};
+
+export type Project = {
+  _id: string;
+  _type: "project";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title: string;
+  description?: string;
+  ourRole?: string;
+  client?: string;
+  format?: string;
+  slug: Slug;
+  projectTypes: Array<string>;
+  isSelected?: boolean;
+  coverThumb: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  coverHover: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.fileAsset";
+    };
+    media?: unknown;
+    _type: "file";
+  };
+  mainGalleryMedia: {
+    type: "image" | "videoUpload" | "vimeo" | "youtube";
+    image?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+    videoFile?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.fileAsset";
+      };
+      media?: unknown;
+      _type: "file";
+    };
+    vimeoUrl?: string;
+    youtubeUrl?: string;
+  };
+  content: Array<{
+    aspectRatio: string;
+    items: Array<{
+      type: "text" | "image" | "videoUpload" | "vimeo" | "youtube";
+      text?: string;
+      image?: {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+      };
+      videoFile?: {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.fileAsset";
+        };
+        media?: unknown;
+        _type: "file";
+      };
+      vimeoUrl?: string;
+      youtubeUrl?: string;
+      _key: string;
+    }>;
+    _type: "row";
+    _key: string;
+  }>;
+  date: string;
+};
+
 export type Settings = {
   _id: string;
   _type: "settings";
@@ -477,7 +628,7 @@ export type SanityAssetSourceData = {
   url?: string;
 };
 
-export type AllSanitySchemaTypes = CallToAction | Link | InfoSection | BlockContent | Settings | Page | Post | Person | SanityAssistInstructionTask | SanityAssistTaskStatus | SanityAssistSchemaTypeAnnotations | SanityAssistOutputType | SanityAssistOutputField | SanityAssistInstructionContext | AssistInstructionContext | SanityAssistInstructionUserInput | SanityAssistInstructionPrompt | SanityAssistInstructionFieldRef | SanityAssistInstruction | SanityAssistSchemaTypeField | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageHotspot | SanityImageCrop | SanityFileAsset | SanityImageAsset | SanityImageMetadata | Geopoint | Slug | SanityAssetSourceData;
+export type AllSanitySchemaTypes = CallToAction | Link | InfoSection | BlockContent | Logo | Product | Project | Settings | Page | Post | Person | SanityAssistInstructionTask | SanityAssistTaskStatus | SanityAssistSchemaTypeAnnotations | SanityAssistOutputType | SanityAssistOutputField | SanityAssistInstructionContext | AssistInstructionContext | SanityAssistInstructionUserInput | SanityAssistInstructionPrompt | SanityAssistInstructionFieldRef | SanityAssistInstruction | SanityAssistSchemaTypeField | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageHotspot | SanityImageCrop | SanityFileAsset | SanityImageAsset | SanityImageMetadata | Geopoint | Slug | SanityAssetSourceData;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./sanity/lib/queries.ts
 // Variable: settingsQuery
@@ -753,19 +904,136 @@ export type PagesSlugsResult = Array<{
 }>;
 // Variable: allProjectsQuery
 // Query: *[_type == "project" && defined(slug.current)] | order(date desc) {    _id,    title,    description,    ourRole,    client,    format,    "slug": slug.current,    projectTypes,    isSelected,    "coverThumb": coverThumb.asset->url,    "coverHover": coverHover.asset->url,    mainGalleryMedia {      type,      "image": image.asset->url,      "videoFile": videoFile.asset->url,      vimeoUrl,      youtubeUrl    },    content[] {      aspectRatio,      items[] {        type,        text,        "image": image.asset->url,        "videoFile": videoFile.asset->url,        vimeoUrl,        youtubeUrl      }    },    "date": date  }
-export type AllProjectsQueryResult = Array<never>;
+export type AllProjectsQueryResult = Array<{
+  _id: string;
+  title: string;
+  description: string | null;
+  ourRole: string | null;
+  client: string | null;
+  format: string | null;
+  slug: string;
+  projectTypes: Array<string>;
+  isSelected: boolean | null;
+  coverThumb: string | null;
+  coverHover: string | null;
+  mainGalleryMedia: {
+    type: "image" | "videoUpload" | "vimeo" | "youtube";
+    image: string | null;
+    videoFile: string | null;
+    vimeoUrl: string | null;
+    youtubeUrl: string | null;
+  };
+  content: Array<{
+    aspectRatio: string;
+    items: Array<{
+      type: "image" | "text" | "videoUpload" | "vimeo" | "youtube";
+      text: string | null;
+      image: string | null;
+      videoFile: string | null;
+      vimeoUrl: string | null;
+      youtubeUrl: string | null;
+    }>;
+  }>;
+  date: string;
+}>;
 // Variable: projectQuery
 // Query: *[_type == "project" && slug.current == $slug][0] {    _id,    title,    description,    ourRole,    client,    format,    "slug": slug.current,    projectTypes,    isSelected,    "coverThumb": coverThumb.asset->url,    "coverHover": coverHover.asset->url,    mainGalleryMedia {      type,      "image": image.asset->url,      "videoFile": videoFile.asset->url,      vimeoUrl,      youtubeUrl    },    content[] {      aspectRatio,      items[] {        type,        text,        "image": image.asset->url,        "videoFile": videoFile.asset->url,        vimeoUrl,        youtubeUrl      }    },    "date": date  }
-export type ProjectQueryResult = null;
+export type ProjectQueryResult = {
+  _id: string;
+  title: string;
+  description: string | null;
+  ourRole: string | null;
+  client: string | null;
+  format: string | null;
+  slug: string;
+  projectTypes: Array<string>;
+  isSelected: boolean | null;
+  coverThumb: string | null;
+  coverHover: string | null;
+  mainGalleryMedia: {
+    type: "image" | "videoUpload" | "vimeo" | "youtube";
+    image: string | null;
+    videoFile: string | null;
+    vimeoUrl: string | null;
+    youtubeUrl: string | null;
+  };
+  content: Array<{
+    aspectRatio: string;
+    items: Array<{
+      type: "image" | "text" | "videoUpload" | "vimeo" | "youtube";
+      text: string | null;
+      image: string | null;
+      videoFile: string | null;
+      vimeoUrl: string | null;
+      youtubeUrl: string | null;
+    }>;
+  }>;
+  date: string;
+} | null;
 // Variable: allProjectSlugsQuery
 // Query: *[_type == "project" && defined(slug.current)] | order(date desc) {    "slug": slug.current  }
-export type AllProjectSlugsQueryResult = Array<never>;
+export type AllProjectSlugsQueryResult = Array<{
+  slug: string;
+}>;
 // Variable: cartProductsQuery
 // Query: *[_type == "product" && _id in $productIds] {    _type == "product" => {  _id,  title,  "slug": slug.current,  id,  price,  salePrice,  description,  category,  inStock,  "images": images[]{    "url": asset->url,    "alt": alt  }}  }
-export type CartProductsQueryResult = Array<never>;
+export type CartProductsQueryResult = Array<{
+  _id: string;
+  title: string;
+  slug: string;
+  id: string;
+  price: number;
+  salePrice: number | null;
+  description: string;
+  category: string | null;
+  inStock: boolean;
+  images: Array<{
+    url: string | null;
+    alt: string;
+  }>;
+}>;
+// Variable: allProductsQuery
+// Query: *[_type == "product" && inStock == true] | order(title asc) {    _type == "product" => {  _id,  title,  "slug": slug.current,  id,  price,  salePrice,  description,  category,  inStock,  "images": images[]{    "url": asset->url,    "alt": alt  }}  }
+export type AllProductsQueryResult = Array<{
+  _id: string;
+  title: string;
+  slug: string;
+  id: string;
+  price: number;
+  salePrice: number | null;
+  description: string;
+  category: string | null;
+  inStock: boolean;
+  images: Array<{
+    url: string | null;
+    alt: string;
+  }>;
+}>;
+// Variable: productBySlugQuery
+// Query: *[_type == "product" && slug.current == $slug][0] {    _type == "product" => {  _id,  title,  "slug": slug.current,  id,  price,  salePrice,  description,  category,  inStock,  "images": images[]{    "url": asset->url,    "alt": alt  }}  }
+export type ProductBySlugQueryResult = {
+  _id: string;
+  title: string;
+  slug: string;
+  id: string;
+  price: number;
+  salePrice: number | null;
+  description: string;
+  category: string | null;
+  inStock: boolean;
+  images: Array<{
+    url: string | null;
+    alt: string;
+  }>;
+} | null;
 // Variable: allLogosQuery
 // Query: *[_type == "logo"] | order(title asc) {    _id,    title,    "imageUrl": image.asset->url,    "alt": image.alt  }
-export type AllLogosQueryResult = Array<never>;
+export type AllLogosQueryResult = Array<{
+  _id: string;
+  title: string;
+  imageUrl: string | null;
+  alt: null;
+}>;
 
 // Query TypeMap
 import "@sanity/client";
@@ -783,6 +1051,8 @@ declare module "@sanity/client" {
     "\n  *[_type == \"project\" && slug.current == $slug][0] {\n    _id,\n    title,\n    description,\n    ourRole,\n    client,\n    format,\n    \"slug\": slug.current,\n    projectTypes,\n    isSelected,\n    \"coverThumb\": coverThumb.asset->url,\n    \"coverHover\": coverHover.asset->url,\n    mainGalleryMedia {\n      type,\n      \"image\": image.asset->url,\n      \"videoFile\": videoFile.asset->url,\n      vimeoUrl,\n      youtubeUrl\n    },\n    content[] {\n      aspectRatio,\n      items[] {\n        type,\n        text,\n        \"image\": image.asset->url,\n        \"videoFile\": videoFile.asset->url,\n        vimeoUrl,\n        youtubeUrl\n      }\n    },\n    \"date\": date\n  }\n": ProjectQueryResult;
     "\n  *[_type == \"project\" && defined(slug.current)] | order(date desc) {\n    \"slug\": slug.current\n  }\n": AllProjectSlugsQueryResult;
     "\n  *[_type == \"product\" && _id in $productIds] {\n    \n_type == \"product\" => {\n  _id,\n  title,\n  \"slug\": slug.current,\n  id,\n  price,\n  salePrice,\n  description,\n  category,\n  inStock,\n  \"images\": images[]{\n    \"url\": asset->url,\n    \"alt\": alt\n  }\n}\n  }\n": CartProductsQueryResult;
+    "\n  *[_type == \"product\" && inStock == true] | order(title asc) {\n    \n_type == \"product\" => {\n  _id,\n  title,\n  \"slug\": slug.current,\n  id,\n  price,\n  salePrice,\n  description,\n  category,\n  inStock,\n  \"images\": images[]{\n    \"url\": asset->url,\n    \"alt\": alt\n  }\n}\n  }\n": AllProductsQueryResult;
+    "\n  *[_type == \"product\" && slug.current == $slug][0] {\n    \n_type == \"product\" => {\n  _id,\n  title,\n  \"slug\": slug.current,\n  id,\n  price,\n  salePrice,\n  description,\n  category,\n  inStock,\n  \"images\": images[]{\n    \"url\": asset->url,\n    \"alt\": alt\n  }\n}\n  }\n": ProductBySlugQueryResult;
     "\n  *[_type == \"logo\"] | order(title asc) {\n    _id,\n    title,\n    \"imageUrl\": image.asset->url,\n    \"alt\": image.alt\n  }\n": AllLogosQueryResult;
   }
 }
