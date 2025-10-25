@@ -22,7 +22,7 @@ export default function Header() {
             <div className="flex-1" />
             <Link 
               href="/archive" 
-              className="text-s hover:underline text-right text-black relative z-[70] cursor-pointer"
+              className="text-s hover:text-[#fe2e2e] hover:underline text-right text-black relative z-[70] cursor-pointer"
             >
               Archive
             </Link>
@@ -32,7 +32,7 @@ export default function Header() {
             <div className="flex-1" />
             <Link 
               href="/products" 
-              className="text-s hover:underline text-right text-black relative z-[70] cursor-pointer"
+              className="text-s hover:text-[#fe2e2e] hover:underline text-right text-black relative z-[70] cursor-pointer"
             >
               Shop
               <CartIndicator />
@@ -43,7 +43,7 @@ export default function Header() {
             <div className="flex-1" />
             <Link 
               href="/info" 
-              className="text-s hover:underline text-right text-black relative z-[70] cursor-pointer"
+              className="text-s hover:text-[#fe2e2e] hover:underline text-right text-black relative z-[70] cursor-pointer"
             >
               Info
             </Link>

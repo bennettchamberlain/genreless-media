@@ -48,9 +48,9 @@ export default function ProjectsGrid({ initialProjects }: ProjectsGridProps) {
             <li>
               <button
                 onClick={() => setSelectedCategory('selected')}
-                className={`text-left py-0 text-s font-[Helvetica] hover:text-[#fe2e2e] ${selectedCategory === 'selected' ? 'underline' : 'hover:underline'}`}
+                className={`text-left pb-2 text-s font-[Helvetica] hover:text-[#fe2e2e] ${selectedCategory === 'selected' ? 'underline' : 'hover:underline'}`}
               >
-                Selected
+                Featured
               </button>
             </li>
             <li>
@@ -141,9 +141,9 @@ export default function ProjectsGrid({ initialProjects }: ProjectsGridProps) {
               <li>
                 <button
                   onClick={() => setSelectedCategory('selected')}
-                  className={`text-left py-0 text-s font-[Helvetica] hover:text-[#fe2e2e] ${selectedCategory === 'selected' ? 'underline' : 'hover:underline'}`}
+                  className={`text-left pb-2 text-s font-[Helvetica] hover:text-[#fe2e2e] ${selectedCategory === 'selected' ? 'underline' : 'hover:underline'}`}
                 >
-                  Selected
+                  Featured
                 </button>
               </li>
               <li>
