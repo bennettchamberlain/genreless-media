@@ -4,6 +4,7 @@ import { client } from '@/sanity/lib/client'
 import { projectQuery, allProjectSlugsQuery } from '@/sanity/lib/queries'
 import ProjectPageContent from './ProjectPageContent'
 import ArchiveHeader from '@/app/archive/components/archiveHeader'
+import InfoHeader from '@/app/components/InfoHeader'
 
 interface Project {
   _id: string
@@ -14,6 +15,7 @@ interface Project {
   format?: string | null
   projectTypes?: string[]
   isSelected: boolean | null
+  colorScheme?: string | null
   coverThumb?: string | null
   coverHover?: string | null
   mainGalleryMedia: {
@@ -78,7 +80,7 @@ export default async function ProjectPage({ params }: Props) {
 
   return (
     <>
-      <ArchiveHeader />
+      {project.colorScheme === 'light' ? <InfoHeader /> : <ArchiveHeader />}
       <ProjectPageContent 
         project={project} 
         prevSlug={prevSlug}

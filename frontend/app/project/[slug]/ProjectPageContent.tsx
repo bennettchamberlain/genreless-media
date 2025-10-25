@@ -3,6 +3,7 @@ import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import Footer from '@/app/components/Footer'
 
 interface Project {
   _id: string
@@ -13,6 +14,7 @@ interface Project {
   format?: string | null
   projectTypes?: string[]
   isSelected: boolean | null
+  colorScheme?: string | null
   coverThumb?: string | null
   coverHover?: string | null
   mainGalleryMedia: {
@@ -66,7 +68,8 @@ const ProjectPageContent = ({ project, prevSlug, nextSlug }: Props) => {
   }
 
   return (
-    <main className="bg-[#0d0d0d] text-white flex flex-col items-center pb-20 pt-20 font-['Helvetica']">
+    <>
+      <main className={`${project.colorScheme === 'light' ? 'bg-[#dadad6] text-black' : 'bg-[#0d0d0d] text-white'} flex flex-col items-center pb-20 pt-20 font-['Helvetica']`}>
       {/* Main Gallery Media */}
       {project.mainGalleryMedia && (
         <div className="w-full max-w-[1400px]">
@@ -161,7 +164,7 @@ const ProjectPageContent = ({ project, prevSlug, nextSlug }: Props) => {
               {row.items && row.items.map((item, itemIdx) => (
                 <div
                   key={itemIdx}
-                  className={`relative bg-[#0d0d0d] overflow-hidden`}
+                  className={`relative ${project.colorScheme === 'light' ? 'bg-[#dadad6]' : 'bg-[#0d0d0d]'} overflow-hidden`}
                   style={{ aspectRatio: row.aspectRatio }}
                 >
                   {item.type === 'image' && item.image && (
@@ -210,7 +213,14 @@ const ProjectPageContent = ({ project, prevSlug, nextSlug }: Props) => {
           ))}
         </div>
       </div>
-    </main>
+      </main>
+      <div className="border-t-1 border-[#575757]">
+        <Footer 
+          backgroundColor={project.colorScheme === 'light' ? '#1a21a5' : '#0d0d0d'} 
+          textColor="white" 
+        />
+      </div>
+    </>
   )
 }
 

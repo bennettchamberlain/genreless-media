@@ -76,6 +76,21 @@ export const project = defineType({
       initialValue: false,
     }),
     defineField({
+      name: 'colorScheme',
+      title: 'Color Scheme',
+      type: 'string',
+      description: 'Choose the color scheme for this project page',
+      options: {
+        list: [
+          {title: 'Dark', value: 'dark'},
+          {title: 'Light', value: 'light'},
+        ],
+        layout: 'radio',
+      },
+      initialValue: 'dark',
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
       name: 'coverThumb',
       title: 'Cover Thumbnail',
       type: 'image',

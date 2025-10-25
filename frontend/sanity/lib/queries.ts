@@ -160,6 +160,7 @@ export const projectQuery = defineQuery(`
     "slug": slug.current,
     projectTypes,
     isSelected,
+    colorScheme,
     "coverThumb": coverThumb.asset->url,
     "coverHover": coverHover.asset->url,
     mainGalleryMedia {
