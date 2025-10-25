@@ -50,7 +50,7 @@ export default function Hero() {
               <p className="mb-4">
                 Our specialties include creative direction, holistic release rollouts, photography, and commercial productions.
               </p>
-              <p>
+              <p className="mb-6">
                 With every project we bring a hands-on, intentional approach to each stage of the process.
               </p>
             </div>
@@ -87,7 +87,7 @@ export default function Hero() {
           </div>
 
           {/* Responsive overlapping blue text - moved up more */}
-          <div className="absolute top-1/5 left-8 md:left-16 lg:left-24 xl:left-32 z-10 max-w-sm md:max-w-md lg:max-w-lg" style={{ mixBlendMode: 'difference' }}>
+          <div className="absolute top-1/5 left-8 md:left-16 lg:left-24 xl:left-21 z-10 max-w-sm md:max-w-md lg:max-w-lg" style={{ mixBlendMode: 'difference' }}>
             <div className="text-white text-lg md:text-xl lg:text-2xl leading-relaxed space-y-4 md:space-y-6 font-['Helvetica']" style={{ transform: 'scaleY(1.2)', transformOrigin: 'left top',}}>
               <p className="mb-4 md:mb-6">
                 Our specialties include creative direction, holistic release rollouts, photography, and commercial productions.

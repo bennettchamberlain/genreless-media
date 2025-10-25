@@ -12,11 +12,11 @@ export default function Footer({
 }: FooterProps) {
   return (
     <footer style={{ backgroundColor }} className="p-0 relative overflow-hidden">
-      <div className="w-full flex flex-col lg:flex-row justify-between items-stretch min-h-[140px] lg:h-[140px] py-4 lg:py-0">
+      <div className="w-full flex flex-col lg:flex-row justify-between items-stretch min-h-[140px] lg:h-[140px] py-2 lg:py-0">
         {/* Column 1 */}
-        <div className="flex flex-col lg:basis-4/6 lg:max-w-[66%] lg:min-h-[140px] mb-4 lg:mb-0 px-4 lg:px-2">
+        <div className="flex flex-col lg:basis-4/6 lg:max-w-[66%] lg:min-h-[140px] mb-2 lg:mb-0 px-4 lg:px-2">
           <div className="flex flex-col h-full py-1">
-            <span className={`font-[Helvetica] text-sm mb-3 lg:mb-3 mt-2 ml-0 lg:ml-2 text-${textColor} italic text-left`}>
+            <span className={`font-[Helvetica] text-sm mb-1 lg:mb-3 mt-1 ml-0 lg:ml-2 text-${textColor} italic text-left`}>
               pare down to the essence, <br></br>but don&apos;t remove the poetry...
             </span>
             <div className="flex-1 hidden lg:block" />
@@ -29,21 +29,21 @@ export default function Footer({
           </div>
         </div>
         {/* Column 2 */}
-        <div className="flex flex-col lg:basis-1/6 lg:border-l border-white/30 px-4 lg:px-4 mb-4 lg:mb-0 text-left">
+        <div className="flex flex-col lg:basis-1/6 lg:border-l border-white/30 px-4 lg:px-4 mb-2 lg:mb-0 text-left">
           <div className="flex flex-col h-full py-1">
-            <div className={`font-[Helvetica] text-sm mb-2 lg:mb-3 mt-2 text-${textColor}`}>Los Angeles, CA, USA</div>
+            <div className={`font-[Helvetica] text-sm mb-1 lg:mb-3 mt-1 text-${textColor}`}>Los Angeles, CA, USA</div>
             <div className="flex-1 hidden lg:block" />
-            <div className={`font-[Helvetica] text-sm mb-2 text-${textColor}`}>creative production company</div>
+            <div className={`font-[Helvetica] text-sm mb-1 text-${textColor}`}>creative production company</div>
           </div>
         </div>
         {/* Column 3 */}
         <div className="flex flex-col lg:basis-1/6 lg:border-l border-white/30 px-4 lg:px-4 text-left lg:text-right">
           <div className="flex flex-col h-full py-1">
-            <div className={`font-sans text-xs mb-2 lg:mb-3 mt-2 text-${textColor}`}>
+            <div className={`font-sans text-xs mb-1 lg:mb-3 mt-1 text-${textColor}`}>
               <a href="https://www.instagram.com/genreless.media/" 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className={`mt-2 font-sans text-sm underline-offset-2 hover:underline hover:text-[#fe2e2e] text-${textColor}`}>
+                className={`mt-1 font-sans text-sm underline-offset-2 hover:underline hover:text-[#fe2e2e] text-${textColor}`}>
                 Instagram
               </a>
             </div>
@@ -51,7 +51,7 @@ export default function Footer({
             <a href="mailto:studio@genreless.media" 
               target="_blank" 
               rel="noopener noreferrer" 
-              className={`mb-2 font-sans text-sm underline-offset-2 hover:underline hover:text-[#fe2e2e] text-${textColor}`}>
+              className={`mb-0 font-sans text-sm underline-offset-2 hover:underline hover:text-[#fe2e2e] text-${textColor}`}>
               Contact Us
             </a>
           </div>

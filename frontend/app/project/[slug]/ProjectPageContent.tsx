@@ -143,7 +143,7 @@ const ProjectPageContent = ({ project, prevSlug, nextSlug }: Props) => {
             Next
           </button>
         </div>
-        <h1 className="text-4xl md:text-5xl font-bold mt-10 ml-4 sm:ml-4 md:ml-4 lg:ml-4 xl:ml-0 font-['Helvetica']">{project.title}</h1>
+        <h1 className="text-2xl md:text-5xl font-bold mt-10 ml-4 sm:ml-4 md:ml-4 lg:ml-4 xl:ml-0 font-['Helvetica']">{project.title}</h1>
         {/* <p className=" text-s mt-2 sm:ml-4 md:ml-4 lg:ml-4 xl:ml-0 font-['Helvetica']">{project.description}</p> */}
       </div>
 
