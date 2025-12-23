@@ -937,7 +937,7 @@ export type AllProjectsQueryResult = Array<{
   date: string;
 }>;
 // Variable: projectQuery
-// Query: *[_type == "project" && slug.current == $slug][0] {    _id,    title,    description,    ourRole,    client,    format,    "slug": slug.current,    projectTypes,    isSelected,    "coverThumb": coverThumb.asset->url,    "coverHover": coverHover.asset->url,    mainGalleryMedia {      type,      "image": image.asset->url,      "videoFile": videoFile.asset->url,      vimeoUrl,      youtubeUrl    },    content[] {      aspectRatio,      items[] {        type,        text,        "image": image.asset->url,        "videoFile": videoFile.asset->url,        vimeoUrl,        youtubeUrl      }    },    "date": date  }
+// Query: *[_type == "project" && slug.current == $slug][0] {    _id,    title,    description,    ourRole,    client,    format,    "slug": slug.current,    projectTypes,    isSelected,    colorScheme,    "coverThumb": coverThumb.asset->url,    "coverHover": coverHover.asset->url,    mainGalleryMedia {      type,      "image": image.asset->url,      "videoFile": videoFile.asset->url,      vimeoUrl,      youtubeUrl    },    content[] {      aspectRatio,      items[] {        type,        text,        "image": image.asset->url,        "videoFile": videoFile.asset->url,        vimeoUrl,        youtubeUrl      }    },    "date": date  }
 export type ProjectQueryResult = {
   _id: string;
   title: string;
@@ -948,6 +948,7 @@ export type ProjectQueryResult = {
   slug: string;
   projectTypes: Array<string>;
   isSelected: boolean | null;
+  colorScheme: null;
   coverThumb: string | null;
   coverHover: string | null;
   mainGalleryMedia: {
@@ -1048,7 +1049,7 @@ declare module "@sanity/client" {
     "\n  *[_type == \"post\" && defined(slug.current)]\n  {\"slug\": slug.current}\n": PostPagesSlugsResult;
     "\n  *[_type == \"page\" && defined(slug.current)]\n  {\"slug\": slug.current}\n": PagesSlugsResult;
     "\n  *[_type == \"project\" && defined(slug.current)] | order(date desc) {\n    _id,\n    title,\n    description,\n    ourRole,\n    client,\n    format,\n    \"slug\": slug.current,\n    projectTypes,\n    isSelected,\n    \"coverThumb\": coverThumb.asset->url,\n    \"coverHover\": coverHover.asset->url,\n    mainGalleryMedia {\n      type,\n      \"image\": image.asset->url,\n      \"videoFile\": videoFile.asset->url,\n      vimeoUrl,\n      youtubeUrl\n    },\n    content[] {\n      aspectRatio,\n      items[] {\n        type,\n        text,\n        \"image\": image.asset->url,\n        \"videoFile\": videoFile.asset->url,\n        vimeoUrl,\n        youtubeUrl\n      }\n    },\n    \"date\": date\n  }\n": AllProjectsQueryResult;
-    "\n  *[_type == \"project\" && slug.current == $slug][0] {\n    _id,\n    title,\n    description,\n    ourRole,\n    client,\n    format,\n    \"slug\": slug.current,\n    projectTypes,\n    isSelected,\n    \"coverThumb\": coverThumb.asset->url,\n    \"coverHover\": coverHover.asset->url,\n    mainGalleryMedia {\n      type,\n      \"image\": image.asset->url,\n      \"videoFile\": videoFile.asset->url,\n      vimeoUrl,\n      youtubeUrl\n    },\n    content[] {\n      aspectRatio,\n      items[] {\n        type,\n        text,\n        \"image\": image.asset->url,\n        \"videoFile\": videoFile.asset->url,\n        vimeoUrl,\n        youtubeUrl\n      }\n    },\n    \"date\": date\n  }\n": ProjectQueryResult;
+    "\n  *[_type == \"project\" && slug.current == $slug][0] {\n    _id,\n    title,\n    description,\n    ourRole,\n    client,\n    format,\n    \"slug\": slug.current,\n    projectTypes,\n    isSelected,\n    colorScheme,\n    \"coverThumb\": coverThumb.asset->url,\n    \"coverHover\": coverHover.asset->url,\n    mainGalleryMedia {\n      type,\n      \"image\": image.asset->url,\n      \"videoFile\": videoFile.asset->url,\n      vimeoUrl,\n      youtubeUrl\n    },\n    content[] {\n      aspectRatio,\n      items[] {\n        type,\n        text,\n        \"image\": image.asset->url,\n        \"videoFile\": videoFile.asset->url,\n        vimeoUrl,\n        youtubeUrl\n      }\n    },\n    \"date\": date\n  }\n": ProjectQueryResult;
     "\n  *[_type == \"project\" && defined(slug.current)] | order(date desc) {\n    \"slug\": slug.current\n  }\n": AllProjectSlugsQueryResult;
     "\n  *[_type == \"product\" && _id in $productIds] {\n    \n_type == \"product\" => {\n  _id,\n  title,\n  \"slug\": slug.current,\n  id,\n  price,\n  salePrice,\n  description,\n  category,\n  inStock,\n  \"images\": images[]{\n    \"url\": asset->url,\n    \"alt\": alt\n  }\n}\n  }\n": CartProductsQueryResult;
     "\n  *[_type == \"product\" && inStock == true] | order(title asc) {\n    \n_type == \"product\" => {\n  _id,\n  title,\n  \"slug\": slug.current,\n  id,\n  price,\n  salePrice,\n  description,\n  category,\n  inStock,\n  \"images\": images[]{\n    \"url\": asset->url,\n    \"alt\": alt\n  }\n}\n  }\n": AllProductsQueryResult;

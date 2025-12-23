@@ -216,9 +216,10 @@ export default function SplashScreen({ onFinish }: { onFinish: () => void }) {
           <button
             className="text-5xl underline underline-offset-4 text-black transition-opacity duration-500 hover:text-[#fe2e2e] cursor-pointer"
             style={{ opacity: showButton ? 1 : 0 }}
-            onClick={onFinish}
+            // onClick={onFinish}
           >
-            ENTER SITE
+            COMING SOON
+            {/* ENTER SITE */}
           </button>
         </div>
       )}
